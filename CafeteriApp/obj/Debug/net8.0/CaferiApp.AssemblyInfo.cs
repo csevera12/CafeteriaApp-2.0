@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CaferiApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b1205a9a10ab2fcf8824318b2435170810f6df1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3adf670c377c745929428a3fdc3b7fb30bc0fc2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CaferiApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CaferiApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
