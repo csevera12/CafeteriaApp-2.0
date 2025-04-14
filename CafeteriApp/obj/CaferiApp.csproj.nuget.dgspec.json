@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj": {}
   },
   "projects": {
@@ -12,9 +13,30 @@
         "projectPath": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
         "packagesPath": "C:\\Users\\franm\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\obj\\",
+=======
+    "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
+        "projectName": "CaferiApp",
+        "projectPath": "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
+        "packagesPath": "C:\\Users\\Inesu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\obj\\",
+>>>>>>> 5dc5fe44d0dbdac69d8cf10bde3f6b01fabfe950
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\franm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\Inesu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> 5dc5fe44d0dbdac69d8cf10bde3f6b01fabfe950
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,7 +61,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -60,7 +83,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+>>>>>>> 5dc5fe44d0dbdac69d8cf10bde3f6b01fabfe950
         }
       }
     }

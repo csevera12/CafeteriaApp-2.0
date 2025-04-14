@@ -11,6 +11,7 @@ namespace CaferiApp
         public Dulce(int codigo, string nombre, string tipo, double precio, int stock)
             : base(codigo, nombre, tipo, precio, stock)
         {
+            //hola
         }
     }
 }

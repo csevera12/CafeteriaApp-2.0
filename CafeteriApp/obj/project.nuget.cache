@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "oGBWecTKVUqcrljqZqOFjaB/EdqUVHLv4xsWBxySJRpBtRzkNxotDDyoh2+IQasptxuSjgwP1IXY5R2ywn0AtA==",
   "success": true,
   "projectFilePath": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
+=======
+  "dgSpecHash": "S/G90WhkoPI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Inesu\\Desktop\\Proyecto cafeteria\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
+>>>>>>> 5dc5fe44d0dbdac69d8cf10bde3f6b01fabfe950
   "expectedPackageFiles": [],
   "logs": []
 }
