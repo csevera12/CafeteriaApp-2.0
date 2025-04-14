@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {}
+    "C:\\Users\\franm\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\CafeteriApp 2.0\\CaferiApp\\CaferiApp.csproj",
+      "projectUniqueName": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
       "projectName": "CaferiApp",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\CafeteriApp 2.0\\CaferiApp\\CaferiApp.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\CafeteriApp 2.0\\CaferiApp\\obj\\",
+      "projectPath": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\CaferiApp.csproj",
+      "packagesPath": "C:\\Users\\franm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\franm\\Desktop\\CafeteriaApp-2.0\\CafeteriApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\franm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
