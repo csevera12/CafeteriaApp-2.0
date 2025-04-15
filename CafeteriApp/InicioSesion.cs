@@ -27,22 +27,23 @@ namespace CaferiApp
 
         public bool ValidarCredenciales(List<Usuario> usuarios)
         {
+            GestorApp ga = new GestorApp();
             bool esValido = false;
+            bool salir = false;
 
             Console.WriteLine("Usuario: ");
             nombre = Console.ReadLine();
 
             Console.WriteLine("Contraseña: ");
-            contrasena = Console.ReadLine();
-
-            // Aquí puedes implementar la lógica para validar las credenciales con los usuarios cargados.
-            // Por ejemplo, podrías buscar el usuario en la lista de usuarios y comparar la contraseña.
+            contrasena = Console.ReadLine(); 
 
             foreach (Usuario usuario in usuarios)
             {
                 if (usuario.Nombre == nombre && usuario.Contrasena == contrasena)
                 {
+                    Console.WriteLine("BIENVENIDO " + nombre + " !");
                     esValido = true;
+                    ga.IniciarApp();
                 }
                 else
                 {
@@ -53,19 +54,17 @@ namespace CaferiApp
 
                     if (opcion == "S")
                     {
+                        ga.RegistrarUsuarios();
                         u = new Cliente(nombre, contrasena);
                         Console.WriteLine("Usuario registrado correctamente !");
                     }
                     else if (opcion == "N")
                     {
                         Console.WriteLine("No estás registrado");
+                        salir = true;
                     }
                 }
-            }
-            if (nombre == "admin" && contrasena == "1234")
-            {
-                esValido = true;
-            }
+            }      
             return esValido;
         }
     }
