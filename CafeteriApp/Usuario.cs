@@ -12,14 +12,14 @@ namespace CaferiApp
         string nombre;
         string contrasena;
         string permisos;
-        int telefono;
+        long telefono;
 
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public string Permisos { get; set; }
-        public int Telefono { get; set; }
+        public long Telefono { get; set; }
 
-        public Usuario(string permisos,string username, string contrasena,int telefono)
+        public Usuario(string permisos,string username, string contrasena,long telefono)
         {
             Nombre = username;
             Contrasena = contrasena;
@@ -30,7 +30,7 @@ namespace CaferiApp
 
         public override string ToString()
         {
-            return $"{permisos}:{nombre}:{contrasena}:{telefono}";
+            return $"{Permisos}:{Nombre}:{Contrasena}:{Telefono}";
         }
 
         public static List<Usuario> CargarUsuarios(string rutaFichero)
@@ -46,7 +46,7 @@ namespace CaferiApp
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        int telefono = Convert.ToInt32(datos[3]);
+                        long telefono = Convert.ToInt64(datos[3]);
                         usuarios.Add(new Usuario(permisos, username, contrasena,telefono));
                     }
                 }
@@ -103,7 +103,7 @@ namespace CaferiApp
 
                 foreach (Usuario usuario in usuarios)
                 {
-                    string linea = $"{usuario.permisos}:{usuario.nombre}:{usuario.contrasena}:{usuario.telefono}";
+                    string linea = $"{usuario.Permisos}:{usuario.Nombre}:{usuario.Contrasena}:{usuario.Telefono}";
                     lineas.Add(linea);
                 }
 
@@ -126,7 +126,7 @@ namespace CaferiApp
 
                 foreach(Usuario cliente in clientes)
                 {
-                    string linea = $"{cliente.permisos}:{cliente.nombre}:{cliente.contrasena}:{cliente.telefono}";
+                    string linea = $"{cliente.Permisos}:{cliente.Nombre}:{cliente.Contrasena}:{cliente.Telefono}";
                     lineas.Add(linea);
                 }
 

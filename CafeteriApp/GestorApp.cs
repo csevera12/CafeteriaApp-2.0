@@ -27,7 +27,7 @@ namespace CaferiApp
 
             foreach (Usuario usuario in usuarios)
             {
-                if (usuario.Nombre == nombre && usuario.Contrasena == contrasena)
+                if (nombre == usuario.Nombre  && contrasena == usuario.Contrasena)
                 {
                     Console.WriteLine("BIENVENIDO " + nombre + " !");
                     esValido = true;
@@ -53,7 +53,6 @@ namespace CaferiApp
                         Console.WriteLine("No estás registrado");
                         Console.WriteLine("Saliendo de la aplicación...");
                         salir = true;
-                        IniciarApp();
                     }
                 }
             }      
@@ -81,8 +80,6 @@ namespace CaferiApp
 
             Console.WriteLine("Las contraseñas coinciden, se ha registrado correctamente.");
             usuarios.Add(new Cliente("C",usuario, password, telefono));
-
-            IniciarApp();
 
             return user;
         }
