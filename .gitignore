@@ -62,3 +62,5 @@ node_modules/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+CafeteriApp/obj/
