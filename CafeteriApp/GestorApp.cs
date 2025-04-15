@@ -8,13 +8,56 @@ namespace CaferiApp
 {
     public class GestorApp
     {
-        InicioSesion inicioSesion;
         List<Usuario> usuarios;
-
         public GestorApp()
         {
             usuarios = new List<Usuario>();
             IniciarApp();
+        }
+        public bool ValidarCredenciales(List<Usuario> usuarios)
+        {
+            bool esValido = false;
+            bool salir = false;
+
+            Console.WriteLine("Usuario: ");
+            string nombre = Console.ReadLine();
+
+            Console.WriteLine("Contraseña: ");
+            string contrasena = Console.ReadLine(); 
+
+            foreach (Usuario usuario in usuarios)
+            {
+                if (usuario.Nombre == nombre && usuario.Contrasena == contrasena)
+                {
+                    Console.WriteLine("BIENVENIDO " + nombre + " !");
+                    esValido = true;
+                    IniciarApp();
+                }
+                else
+                {
+                    Usuario u = new Usuario();
+
+                    Console.WriteLine("No estás registrado ! - Deseas registrarte (S/N) ? ");
+                    string opcion = Console.ReadLine();
+
+                    if (opcion == "S")
+                    {
+                        int telefono = 0;
+
+                        RegistrarUsuarios();
+                        u = new Cliente("C",nombre, contrasena,telefono);
+                        Console.WriteLine("Usuario registrado correctamente !");
+                    }
+                    else if (opcion == "N")
+                    {
+                        Console.WriteLine("No estás registrado");
+                        Console.WriteLine("Saliendo de la aplicación...");
+                        salir = true;
+                        IniciarApp();
+                    }
+                }
+            }      
+            return esValido;
         }
         public Usuario RegistrarUsuarios()
         {
@@ -33,18 +76,11 @@ namespace CaferiApp
             {
                 Console.WriteLine("Las contraseñas no coinciden");
             }
-
             Console.WriteLine("Introduce tu telefono :");
             int telefono = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Introduce tu correo :");
-            string correo = Console.ReadLine();
-
-            //Poner permisos de administrador o cliente
-            //Hacer en usuario un constructor sin el atributo permisos
-
             Console.WriteLine("Las contraseñas coinciden, se ha registrado correctamente.");
-            usuarios.Add(new Cliente(usuario, password));
+            usuarios.Add(new Cliente("C",usuario, password, telefono));
 
             IniciarApp();
 
@@ -52,9 +88,7 @@ namespace CaferiApp
         }
         public void IniciarApp()
         {
-            inicioSesion = new InicioSesion();
-
-            if (inicioSesion.ValidarCredenciales(usuarios))
+            if (ValidarCredenciales(usuarios))
             {
                 Console.WriteLine("Bienvenido a la aplicación de cafetería.");
             }

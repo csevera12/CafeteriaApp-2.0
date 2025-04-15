@@ -8,7 +8,7 @@ namespace CaferiApp
 {
     internal class Administrador : Usuario
     {
-        public Administrador(string username, string contrasena) : base(username, contrasena)
+        public Administrador(string permisos,string username, string contrasena,int telefono) : base(username, contrasena,permisos,telefono)
         {
 
         }

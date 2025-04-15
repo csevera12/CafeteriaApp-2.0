@@ -12,18 +12,26 @@ namespace CaferiApp
         string nombre;
         string contrasena;
         string permisos;
+        int telefono;
 
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public string Permisos { get; set; }
+        public int Telefono { get; set; }
 
-        public Usuario(string username, string contrasena, string permisos)
+        public Usuario(string permisos,string username, string contrasena,int telefono)
         {
             Nombre = username;
             Contrasena = contrasena;
             Permisos = permisos;
+            Telefono = telefono;
         }
         public Usuario() { }
+
+        public override string ToString()
+        {
+            return $"{permisos}:{nombre}:{contrasena}:{telefono}";
+        }
 
         public static List<Usuario> CargarUsuarios(string rutaFichero)
         {
@@ -33,12 +41,13 @@ namespace CaferiApp
                 foreach (string linea in File.ReadAllLines(rutaFichero))
                 {
                     string[] datos = linea.Trim().Split(':');
-                    if (datos.Length == 3)
+                    if (datos.Length == 4)
                     {
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        usuarios.Add(new Usuario(permisos, username, contrasena));
+                        int telefono = Convert.ToInt32(datos[3]);
+                        usuarios.Add(new Usuario(permisos, username, contrasena,telefono));
                     }
                 }
             }
@@ -61,14 +70,15 @@ namespace CaferiApp
             {
                 foreach (string linea in File.ReadAllLines(rutaFichero))
                 {
-                    string[] datos = linea.Split(':');
+                    string[] datos = linea.Trim().Split(':');
 
-                    if (datos.Length == 3)
+                    if (datos.Length == 4)
                     {
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        clientes.Add(new Usuario(permisos, username, contrasena));
+                        int telefono = Convert.ToInt32(datos[3]);
+                        clientes.Add(new Cliente(permisos, username, contrasena,telefono));
                     }
                 }
             }
@@ -80,13 +90,11 @@ namespace CaferiApp
             {
                 Console.WriteLine($"Error al leer el fichero: {e.Message}");
             }
-
             return clientes;
         }
 
         public static void GuardarUsuarios(string rutaFichero)
         {
-          
            List<Usuario> usuarios = new List<Usuario>();
 
            try
@@ -95,7 +103,7 @@ namespace CaferiApp
 
                 foreach (Usuario usuario in usuarios)
                 {
-                    string linea = $"{usuario.permisos}:{usuario.nombre}:{usuario.contrasena}";
+                    string linea = $"{usuario.permisos}:{usuario.nombre}:{usuario.contrasena}:{usuario.telefono}";
                     lineas.Add(linea);
                 }
 
@@ -118,7 +126,7 @@ namespace CaferiApp
 
                 foreach(Usuario cliente in clientes)
                 {
-                    string linea = $"{cliente.permisos}:{cliente.nombre}:{cliente.contrasena}";
+                    string linea = $"{cliente.permisos}:{cliente.nombre}:{cliente.contrasena}:{cliente.telefono}";
                     lineas.Add(linea);
                 }
 
@@ -129,7 +137,6 @@ namespace CaferiApp
             {
                 Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
             }
-        }
-            
+        }        
     }
 }

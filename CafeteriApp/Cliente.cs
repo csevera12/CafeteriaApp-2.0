@@ -8,7 +8,7 @@ namespace CaferiApp
 {
     internal class Cliente : Usuario
     {
-        public Cliente(string username, string contrasena, string permisos) : base(username, contrasena, permisos)
+        public Cliente(string permisos,string username, string contrasena,int telefono) : base(permisos,username, contrasena,telefono)
         {
         }
     }
