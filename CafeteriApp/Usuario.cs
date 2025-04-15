@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,17 @@ namespace CaferiApp
     {
         string nombre;
         string contrasena;
-        //string permisos;
+        string permisos;
 
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
-        //public string Permisos { get; set; }
+        public string Permisos { get; set; }
 
-        public Usuario(string username, string contrasena)
+        public Usuario(string username, string contrasena, string permisos)
         {
             Nombre = username;
             Contrasena = contrasena;
+            Permisos = permisos;
         }
         public Usuario() { }
 
@@ -36,7 +38,7 @@ namespace CaferiApp
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        usuarios.Add(new Usuario(username, contrasena));
+                        usuarios.Add(new Usuario(permisos, username, contrasena));
                     }
                 }
             }
@@ -66,7 +68,7 @@ namespace CaferiApp
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        clientes.Add(new Usuario(username, contrasena));
+                        clientes.Add(new Usuario(permisos, username, contrasena));
                     }
                 }
             }
@@ -82,6 +84,52 @@ namespace CaferiApp
             return clientes;
         }
 
-        /////HOLA
+        public static void GuardarUsuarios(string rutaFichero)
+        {
+          
+           List<Usuario> usuarios = new List<Usuario>();
+
+           try
+           {
+                List<string> lineas = new List<String>();
+
+                foreach (Usuario usuario in usuarios)
+                {
+                    string linea = $"{usuario.permisos}:{usuario.nombre}:{usuario.contrasena}";
+                    lineas.Add(linea);
+                }
+
+                File.WriteAllLines(rutaFichero, lineas);
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
+            }
+        }
+
+        public static void GuardarClientes(string rutaFichero)
+        {
+            List<Usuario> clientes = new List<Usuario>();
+
+            try 
+            {
+                List<string> lineas = new List<String>();
+
+                foreach(Usuario cliente in clientes)
+                {
+                    string linea = $"{cliente.permisos}:{cliente.nombre}:{cliente.contrasena}";
+                    lineas.Add(linea);
+                }
+
+                File.WriteAllLines(rutaFichero, lineas);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
+            }
+        }
+            
     }
 }
