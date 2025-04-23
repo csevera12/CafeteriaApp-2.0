@@ -17,7 +17,6 @@ namespace CaferiApp
         public bool ValidarCredenciales(List<Usuario> usuarios)
         {
             bool esValido = false;
-            bool salir = false;
 
             Console.WriteLine("Usuario: ");
             string nombre = Console.ReadLine();
@@ -27,11 +26,10 @@ namespace CaferiApp
 
             foreach (Usuario usuario in usuarios)
             {
-                if (nombre == usuario.Nombre  && contrasena == usuario.Contrasena)
+                if (nombre == usuario.Nombre && contrasena == usuario.Contrasena)
                 {
                     Console.WriteLine("BIENVENIDO " + nombre + " !");
                     esValido = true;
-                    IniciarApp();
                 }
                 else
                 {
@@ -46,13 +44,10 @@ namespace CaferiApp
 
                         RegistrarUsuarios();
                         u = new Cliente("C",nombre, contrasena,telefono);
-                        Console.WriteLine("Usuario registrado correctamente !");
                     }
                     else if (opcion == "N")
                     {
-                        Console.WriteLine("No estás registrado");
                         Console.WriteLine("Saliendo de la aplicación...");
-                        salir = true;
                     }
                 }
             }      
