@@ -8,9 +8,15 @@ namespace CaferiApp
 {
     internal class Administrador : Usuario
     {
-        public Administrador(string permisos, string username, string contrasena, long telefono) : base(permisos, username, contrasena, telefono)
+        public Administrador(string permisos, string username, string contrasena, long telefono) 
+        : base(permisos, username, contrasena, telefono)
         {
 
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

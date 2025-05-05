@@ -9,21 +9,21 @@ namespace CaferiApp
 {
     public class Usuario
     {
-        string nombre;
-        string contrasena;
-        string permisos;
-        long telefono;
+        protected string nombre;
+        protected string contrasena;
+        protected string permisos;
+        protected long telefono;
 
-        public string Nombre { get; set; }
-        public string Contrasena { get; set; }
-        public string Permisos { get; set; }
-        public long Telefono { get; set; }
+        public string Permisos { get => permisos; set => permisos = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Contrasena { get => contrasena; set => contrasena = value; }
+        public long Telefono { get => telefono; set => telefono = value; }
 
         public Usuario(string permisos,string username, string contrasena,long telefono)
         {
-            Nombre = username;
-            Contrasena = contrasena;
             Permisos = permisos;
+            Nombre = username;
+            Contrasena = contrasena;         
             Telefono = telefono;
         }
         public Usuario() { }
@@ -77,7 +77,7 @@ namespace CaferiApp
                         string permisos = datos[0];
                         string username = datos[1];
                         string contrasena = datos[2];
-                        int telefono = Convert.ToInt32(datos[3]);
+                        long telefono = Convert.ToInt64(datos[3]);
                         clientes.Add(new Cliente(permisos, username, contrasena,telefono));
                     }
                 }
