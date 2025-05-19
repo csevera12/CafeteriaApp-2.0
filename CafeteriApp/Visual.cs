@@ -20,10 +20,11 @@ namespace CaferiApp
             string dibujoCafe = "   ( (   \n    ) )  \n  ........\n  |      |]\n  \\      /\n   `----'";
             string botonInicioSesion = "[ INICIO SESIÓN ]";
             string botonRegistro = "[ REGISTRO ]";
+            int margen = (altoPantalla - 10) / 3;
 
             Console.WriteLine(borde);
             
-            for (int i = 0; i < (altoPantalla - 10) / 2; i++)
+            for (int i = 0; i < margen; i++)
             {
                 Console.WriteLine(CentrarTexto("", anchoPantalla));
             }
@@ -40,7 +41,7 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto(botonInicioSesion, anchoPantalla));
             Console.WriteLine(CentrarTexto(botonRegistro, anchoPantalla));
 
-            for (int i = 0; i < (altoPantalla - 10 / 2); i++)
+            for (int i = 0; i < margen - 2; i++)
             {
                 Console.WriteLine(CentrarTexto("", anchoPantalla));
             }
