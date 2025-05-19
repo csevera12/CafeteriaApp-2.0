@@ -13,22 +13,39 @@ namespace CaferiApp
         {
             Console.Clear();    
 
-            int anchoPantalla = 60;
+            int anchoPantalla = Console.WindowWidth - 2;
+            int altoPantalla = Console.WindowHeight - 2;
             string borde = new string('-', anchoPantalla);
             string titulo = "CAFETERIA APP";
             string dibujoCafe = "   ( (   \n    ) )  \n  ........\n  |      |]\n  \\      /\n   `----'";
             string botonInicioSesion = "[ INICIO SESIÓN ]";
-            string  botonRegistro = "[ REGISTRO ]";
+            string botonRegistro = "[ REGISTRO ]";
 
             Console.WriteLine(borde);
+            
+            for (int i = 0; i < (altoPantalla - 10) / 2; i++)
+            {
+                Console.WriteLine(CentrarTexto("", anchoPantalla));
+            }
+
             Console.WriteLine(CentrarTexto("", anchoPantalla));
-            Console.WriteLine(CentrarTexto(titulo, anchoPantalla));
             Console.WriteLine();
 
             foreach (string linea in dibujoCafe.Split('\n'))
             {
                 Console.WriteLine(CentrarTexto(linea, anchoPantalla));
             }
+
+            Console.WriteLine();
+            Console.WriteLine(CentrarTexto(botonInicioSesion, anchoPantalla));
+            Console.WriteLine(CentrarTexto(botonRegistro, anchoPantalla));
+
+            for (int i = 0; i < (altoPantalla - 10 / 2); i++)
+            {
+                Console.WriteLine(CentrarTexto("", anchoPantalla));
+            }
+
+            Console.WriteLine(borde);
         }
 
 
@@ -36,7 +53,7 @@ namespace CaferiApp
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
             
-            if (espacios == 0)
+            if (espacios < 0)
             {
                 espacios = 0;
             }
