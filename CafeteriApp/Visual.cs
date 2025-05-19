@@ -9,9 +9,10 @@ namespace CaferiApp
 {
     public class Visual
     {
+        int opcionMenu = 0;
         public void InicioPantalla()
         {
-            Console.Clear();    
+            Console.Clear();
 
             int anchoPantalla = Console.WindowWidth - 2;
             int altoPantalla = Console.WindowHeight - 2;
@@ -23,7 +24,7 @@ namespace CaferiApp
             int margen = (altoPantalla - 10) / 3;
 
             Console.WriteLine(borde);
-            
+
             for (int i = 0; i < margen; i++)
             {
                 Console.WriteLine(CentrarTexto("", anchoPantalla));
@@ -49,17 +50,47 @@ namespace CaferiApp
             Console.WriteLine(borde);
         }
 
+        public void ColorOpciones()
+        {
+            Console.ForegroundColor = opcionMenu == 0 ? ConsoleColor.Red : ConsoleColor.White;
+            Console.WriteLine(CentrarTexto("[INICIO SESIÓN]", Console.WindowWidth - 2));
+            Console.ForegroundColor = opcionMenu == 1 ? ConsoleColor.Red : ConsoleColor.White;
+            Console.WriteLine(CentrarTexto("[REGISTRO]", Console.WindowWidth - 2));
+
+            Console.ResetColor();
+            
+        }
+
+        private void NavegarOpciones()
+    {
+        ConsoleKeyInfo tecla;
+        do
+        {
+            tecla = Console.ReadKey(true);
+
+            if (tecla.Key == ConsoleKey.UpArrow || tecla.Key == ConsoleKey.DownArrow)
+            {
+                opcionMenu = opcionMenu == 0 ? 1 : 0;
+                Console.Clear();
+                InicioPantalla();
+            }
+
+        } while (tecla.Key != ConsoleKey.Enter);
+
+        Console.Clear();
+        //Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
+    }
 
         public string CentrarTexto(string texto, int anchoPantalla)
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
-            
+
             if (espacios < 0)
             {
                 espacios = 0;
             }
 
-            return new string (' ', espacios) + texto; 
+            return new string(' ', espacios) + texto;
         }
     }
 }

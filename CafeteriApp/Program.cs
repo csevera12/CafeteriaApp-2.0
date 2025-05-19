@@ -6,7 +6,7 @@
         {
             Visual visual= new Visual();
             visual.InicioPantalla();
-            Console.ReadKey();
+            //Console.ReadKey();
 
             GestorApp ga = new GestorApp();
             //Empieza el programa cargando los usuarios en la lista para realizar las opciones del menú
