@@ -19,8 +19,8 @@ namespace CaferiApp
             string borde = new string('-', anchoPantalla);
             string titulo = "CAFETERIA APP";
             string dibujoCafe = "   ( (   \n    ) )  \n  ........\n  |      |]\n  \\      /\n   `----'";
-            string botonInicioSesion = "[ INICIO SESIÓN ]";
-            string botonRegistro = "[ REGISTRO ]";
+            //string botonInicioSesion = "[ INICIO SESIÓN ]";
+            //string botonRegistro = "[ REGISTRO ]";
             int margen = (altoPantalla - 10) / 3;
 
             Console.WriteLine(borde);
@@ -30,7 +30,7 @@ namespace CaferiApp
                 Console.WriteLine(CentrarTexto("", anchoPantalla));
             }
 
-            Console.WriteLine(CentrarTexto("", anchoPantalla));
+            Console.WriteLine(CentrarTexto(titulo, anchoPantalla));
             Console.WriteLine();
 
             foreach (string linea in dibujoCafe.Split('\n'))
@@ -39,8 +39,10 @@ namespace CaferiApp
             }
 
             Console.WriteLine();
-            Console.WriteLine(CentrarTexto(botonInicioSesion, anchoPantalla));
-            Console.WriteLine(CentrarTexto(botonRegistro, anchoPantalla));
+            // Console.WriteLine(CentrarTexto(botonInicioSesion, anchoPantalla));
+            // Console.WriteLine(CentrarTexto(botonRegistro, anchoPantalla));
+
+            ColorOpciones();
 
             for (int i = 0; i < margen - 2; i++)
             {
@@ -53,15 +55,15 @@ namespace CaferiApp
         public void ColorOpciones()
         {
             Console.ForegroundColor = opcionMenu == 0 ? ConsoleColor.Red : ConsoleColor.White;
-            Console.WriteLine(CentrarTexto("[INICIO SESIÓN]", Console.WindowWidth - 2));
+            Console.WriteLine(CentrarTexto("[ INICIO SESIÓN ]", Console.WindowWidth - 2));
             Console.ForegroundColor = opcionMenu == 1 ? ConsoleColor.Red : ConsoleColor.White;
-            Console.WriteLine(CentrarTexto("[REGISTRO]", Console.WindowWidth - 2));
+            Console.WriteLine(CentrarTexto("[ REGISTRO ]", Console.WindowWidth - 2));
 
             Console.ResetColor();
             
         }
 
-        private void NavegarOpciones()
+        public void NavegarOpciones()
     {
         ConsoleKeyInfo tecla;
         do
@@ -78,19 +80,14 @@ namespace CaferiApp
         } while (tecla.Key != ConsoleKey.Enter);
 
         Console.Clear();
-        //Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
+        Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
     }
 
         public string CentrarTexto(string texto, int anchoPantalla)
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
 
-            if (espacios < 0)
-            {
-                espacios = 0;
-            }
-
-            return new string(' ', espacios) + texto;
+            return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
     }
 }

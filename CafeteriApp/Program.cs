@@ -6,6 +6,7 @@
         {
             Visual visual= new Visual();
             visual.InicioPantalla();
+            visual.NavegarOpciones();
             //Console.ReadKey();
 
             GestorApp ga = new GestorApp();
