@@ -12,7 +12,7 @@ namespace CaferiApp
             this.usuarios = usuarios;
         }
 
-        public bool ValidarCredenciales(bool modoRegistro = false)
+        public Usuario ValidarCredenciales(bool modoRegistro = false)
         {
             Console.Write("Usuario: ");
             string nombre = Console.ReadLine();
@@ -25,13 +25,23 @@ namespace CaferiApp
                 if (nombre == usuario.Nombre && contrasena == usuario.Contrasena)
                 {
                     Console.WriteLine("BIENVENIDO " + nombre + " !");
-                    return true;
+                    return usuario;
                 }
             }
             if (modoRegistro)
             {
-                RegistrarUsuario(nombre, contrasena);
-                return true;
+                bool registrado = RegistrarUsuario(nombre, contrasena);
+                if (registrado)
+                {
+                    Usuario nuevo = usuarios.Find(u => u.Nombre == nombre && u.Contrasena == contrasena);
+                    return nuevo;
+
+                }
+                else
+                {
+                    return null;
+                }
+
             }
             else
             {
@@ -40,14 +50,24 @@ namespace CaferiApp
 
                 if (opcion?.ToUpper() == "S")
                 {
-                    RegistrarUsuario(nombre, contrasena);
-                    return true;
+                    bool registrado = RegistrarUsuario(nombre, contrasena);
+
+                    if (registrado)
+                    {
+                        Usuario nuevo = usuarios.Find(u => u.Nombre == nombre && u.Contrasena == contrasena);
+                        return nuevo;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Saliendo de la aplicación...");
-                    return false;
+                    return null;
                 }
+
             }
         }
 

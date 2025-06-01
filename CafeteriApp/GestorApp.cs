@@ -22,20 +22,28 @@ namespace CaferiApp
 
 
         public void IniciarApp()
-{
-    if (opcionSeleccionada == 0) // Iniciar sesión
-    {
-        if (inicioSesion.ValidarCredenciales())
         {
-            Console.WriteLine("Bienvenido a la aplicación de cafetería.");
+            Usuario usuario = null;
+
+            if (opcionSeleccionada == 0) // Iniciar sesión
+            {
+                usuario = inicioSesion.ValidarCredenciales(); 
+            }
+            else if (opcionSeleccionada == 1) // Registro
+            {
+                usuario = inicioSesion.ValidarCredenciales(true);
+            }
+
+            if (usuario != null)
+            {
+                Console.WriteLine("Bienvenido a la aplicación de cafetería, " + usuario.Nombre);
+            }
+            else
+            {
+                Console.WriteLine("Error: no se pudo iniciar sesión o registrar.");
+            }
         }
-    }
-    else if (opcionSeleccionada == 1) // Registro
-    {
-        inicioSesion.ValidarCredenciales(true); 
-        Console.WriteLine("Registro completado. Ya puedes iniciar sesión.");
-    }
-}
 
     }
 }
+
