@@ -63,24 +63,25 @@ namespace CaferiApp
             
         }
 
-        public void NavegarOpciones()
-    {
-        ConsoleKeyInfo tecla;
-        do
+        public int NavegarOpciones()
         {
-            tecla = Console.ReadKey(true);
-
-            if (tecla.Key == ConsoleKey.UpArrow || tecla.Key == ConsoleKey.DownArrow)
+            ConsoleKeyInfo tecla;
+            do
             {
-                opcionMenu = opcionMenu == 0 ? 1 : 0;
-                Console.Clear();
-                InicioPantalla();
-            }
+                tecla = Console.ReadKey(true);
 
-        } while (tecla.Key != ConsoleKey.Enter);
+                if (tecla.Key == ConsoleKey.UpArrow || tecla.Key == ConsoleKey.DownArrow)
+                {
+                    opcionMenu = opcionMenu == 0 ? 1 : 0;
+                    Console.Clear();
+                    InicioPantalla();
+                }
 
-        Console.Clear();
-        Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
+            } while (tecla.Key != ConsoleKey.Enter);
+
+            Console.Clear();
+            Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
+            return opcionMenu;
     }
 
         public string CentrarTexto(string texto, int anchoPantalla)

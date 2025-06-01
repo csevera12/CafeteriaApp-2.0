@@ -10,24 +10,32 @@ namespace CaferiApp
     {
         List<Usuario> usuarios;
         InicioSesion inicioSesion;
+        int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
 
-        public GestorApp()
+
+        public GestorApp(List<Usuario> usuarios, int opcionSeleccionada)
         {
-            usuarios = new List<Usuario>();
-            inicioSesion = new InicioSesion(usuarios);
-            IniciarApp();
+            this.usuarios = usuarios;
+            this.opcionSeleccionada = opcionSeleccionada;
+            inicioSesion = new InicioSesion(this.usuarios);
         }
+
 
         public void IniciarApp()
+{
+    if (opcionSeleccionada == 0) // Iniciar sesión
+    {
+        if (inicioSesion.ValidarCredenciales())
         {
-            if (inicioSesion.ValidarCredenciales())
-            {
-                Console.WriteLine("Bienvenido a la aplicación de cafetería.");
-            }
-            else
-            {
-                Console.WriteLine("No se pudo iniciar sesión. Saliendo de la aplicación.");
-            }
+            Console.WriteLine("Bienvenido a la aplicación de cafetería.");
         }
+    }
+    else if (opcionSeleccionada == 1) // Registro
+    {
+        inicioSesion.ValidarCredenciales(true); 
+        Console.WriteLine("Registro completado. Ya puedes iniciar sesión.");
+    }
+}
+
     }
 }
