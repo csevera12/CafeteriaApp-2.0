@@ -77,7 +77,7 @@ namespace CaferiApp
             return opcionMenu;
         }
 
-        public int MostrarMenuInicio()
+        public int MostrarMenuInicio(List<Usuario> usuarios)
         {
             InicioPantalla();
             int seleccionarOpcion = NavegarOpciones();
@@ -87,10 +87,10 @@ namespace CaferiApp
                 VisualRegistro();
             }
 
-            /* else
+            else
              {
-                 // pantalla de inicio de sesion
-             }*/
+                VisualInicioSesion(usuarios);
+             }
 
             return seleccionarOpcion;
         }
@@ -120,8 +120,6 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("Registro completado", anchoPantalla));
 
             Console.ReadKey();
-
-            MostrarMenuInicio();
         }
 
         public string CentrarTexto(string texto, int anchoPantalla)
@@ -129,6 +127,43 @@ namespace CaferiApp
             int espacios = (anchoPantalla - texto.Length) / 2;
 
             return espacios > 0 ? new string(' ', espacios) + texto : texto;
+        }
+
+        public void VisualInicioSesion(List<Usuario> usuarios)
+        {
+            Console.Clear();
+
+            int anchoPantalla = Console.WindowWidth - 2;
+            int altoPantalla = Console.WindowHeight - 2;
+            string borde = new string('-', anchoPantalla);
+            int margen = (altoPantalla - 12) / 2;
+
+            Console.WriteLine(borde);
+
+            for (int i = 0; i < margen; i++)
+            {
+                Console.WriteLine(CentrarTexto("", anchoPantalla));
+            }
+
+            Console.WriteLine(CentrarTexto("POR FAVOR, INICIA SESIÓN", anchoPantalla));
+            Console.WriteLine();
+
+            InicioSesion inicioSesion = new InicioSesion(usuarios);
+            Usuario usuario = inicioSesion.ValidarCredenciales();
+
+            Console.Clear();
+
+            if (usuario != null)
+            {
+                Console.WriteLine(CentrarTexto("Bienvenido " + usuario.Nombre + "!", anchoPantalla));
+            }
+
+            else
+            {
+                Console.WriteLine(CentrarTexto("Credenciales incorrectas. Registrate", anchoPantalla));
+            }
+
+            Console.ReadKey();
         }
         
     }

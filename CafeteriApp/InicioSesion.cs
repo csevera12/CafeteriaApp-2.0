@@ -14,10 +14,12 @@ namespace CaferiApp
 
         public Usuario ValidarCredenciales(bool modoRegistro = false)
         {
-            Console.Write("Usuario: ");
+            int anchoPantalla = Console.WindowWidth - 2;
+
+            Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
             string nombre = Console.ReadLine();
 
-            Console.Write("Contraseña: ");
+            Console.Write(CentrarTexto("Contraseña: ",anchoPantalla));
             string contrasena = Console.ReadLine();
 
             foreach (Usuario usuario in usuarios)
@@ -119,6 +121,13 @@ namespace CaferiApp
             {
                 Console.WriteLine($"Error al guardar los clientes: {e.Message}");
             }
+        }
+
+         public string CentrarTexto(string texto, int anchoPantalla)
+        {
+            int espacios = (anchoPantalla - texto.Length) / 2;
+
+            return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
 
     }
