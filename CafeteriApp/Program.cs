@@ -5,14 +5,13 @@
         static void Main(string[] args)
         {
             Visual visual = new Visual();
-            visual.InicioPantalla();
 
             // Guardamos la opción seleccionada: 0 = iniciar sesión, 1 = registro
-            int opcionSeleccionada = visual.NavegarOpciones();
+            int opcionSeleccionada = visual.MostrarMenuInicio();
 
-            
+
             List<Usuario> usuarios = Usuario.CargarUsuarios("admins.txt");
-            usuarios.AddRange(Usuario.CargarClientes("clientes.txt"));
+            usuarios.AddRange(Usuario.CargarClientes("clientes.txt")); 
 
 
             // Creamos la app con los datos correctos
@@ -20,6 +19,8 @@
 
             // Ahora sí iniciamos la app
             ga.IniciarApp();
+            
+
         }
     }
 }

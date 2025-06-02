@@ -19,8 +19,6 @@ namespace CaferiApp
             string borde = new string('-', anchoPantalla);
             string titulo = "CAFETERIA APP";
             string dibujoCafe = "   ( (   \n    ) )  \n  ........\n  |      |]\n  \\      /\n   `----'";
-            //string botonInicioSesion = "[ INICIO SESIÓN ]";
-            //string botonRegistro = "[ REGISTRO ]";
             int margen = (altoPantalla - 10) / 3;
 
             Console.WriteLine(borde);
@@ -39,8 +37,6 @@ namespace CaferiApp
             }
 
             Console.WriteLine();
-            // Console.WriteLine(CentrarTexto(botonInicioSesion, anchoPantalla));
-            // Console.WriteLine(CentrarTexto(botonRegistro, anchoPantalla));
 
             ColorOpciones();
 
@@ -60,7 +56,6 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("[ REGISTRO ]", Console.WindowWidth - 2));
 
             Console.ResetColor();
-            
         }
 
         public int NavegarOpciones()
@@ -73,16 +68,61 @@ namespace CaferiApp
                 if (tecla.Key == ConsoleKey.UpArrow || tecla.Key == ConsoleKey.DownArrow)
                 {
                     opcionMenu = opcionMenu == 0 ? 1 : 0;
-                    Console.Clear();
+
                     InicioPantalla();
                 }
 
             } while (tecla.Key != ConsoleKey.Enter);
 
-            Console.Clear();
-            Console.WriteLine($"Has seleccionado: {(opcionMenu == 0 ? "Inicio Sesión" : "Registro")}");
             return opcionMenu;
-    }
+        }
+
+        public int MostrarMenuInicio()
+        {
+            InicioPantalla();
+            int seleccionarOpcion = NavegarOpciones();
+
+            if (seleccionarOpcion == 1)
+            {
+                VisualRegistro();
+            }
+
+            /* else
+             {
+                 // pantalla de inicio de sesion
+             }*/
+
+            return seleccionarOpcion;
+        }
+
+        public void VisualRegistro()
+        {
+            Console.Clear();
+
+            int anchoPantalla = Console.WindowWidth - 2;
+            int altoPantalla = Console.WindowHeight - 2;
+            string borde = new string('-', anchoPantalla);
+            int margen = (altoPantalla - 12) / 2;
+
+            Console.WriteLine(borde);
+
+            for (int i = 0; i < margen; i++)
+            {
+                Console.WriteLine(CentrarTexto("", anchoPantalla));
+            }
+
+            Console.WriteLine(CentrarTexto("POR FAVOR, REGÍSTRATE: ", anchoPantalla));
+            Console.WriteLine();
+
+            Console.Write(CentrarTexto("Numero de teléfono: ", anchoPantalla));
+            long correo = Convert.ToInt64(Console.ReadLine());
+
+            Console.WriteLine(CentrarTexto("Registro completado", anchoPantalla));
+
+            Console.ReadKey();
+
+            MostrarMenuInicio();
+        }
 
         public string CentrarTexto(string texto, int anchoPantalla)
         {
@@ -90,5 +130,6 @@ namespace CaferiApp
 
             return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
+        
     }
 }
