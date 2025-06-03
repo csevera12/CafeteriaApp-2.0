@@ -115,7 +115,7 @@ namespace CaferiApp
             Console.WriteLine();
 
             Console.Write(CentrarTexto("Numero de teléfono: ", anchoPantalla));
-            long correo = Convert.ToInt64(Console.ReadLine());
+            long tlf = Convert.ToInt64(Console.ReadLine());
 
             Console.WriteLine(CentrarTexto("Registro completado", anchoPantalla));
 
@@ -156,6 +156,14 @@ namespace CaferiApp
             if (usuario != null)
             {
                 Console.WriteLine(CentrarTexto("Bienvenido " + usuario.Nombre + "!", anchoPantalla));
+                //PARA HACER QUE FUNCIONE LA APP, SE DEBE CREAR UNA INSTANCIA DE GestorApp CON EL
+                //USUARIO y a partir de ahi, crear las funciones
+                GestorApp gestorApp = new GestorApp(usuario);
+                if(usuario is Cliente cliente)
+                {
+                    gestorApp.MenuAdministrador();
+                    //gestorApp.ClientePide();
+                }
             }
 
             else

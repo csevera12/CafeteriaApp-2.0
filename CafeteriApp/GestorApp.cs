@@ -10,6 +10,11 @@ namespace CaferiApp
     {
         List<Usuario> usuarios;
         InicioSesion inicioSesion;
+
+        Cliente cliente;
+        Administrador admin;
+
+        List<Producto> productosDisponibles;
         int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
 
 
@@ -18,6 +23,17 @@ namespace CaferiApp
             this.usuarios = usuarios;
             this.opcionSeleccionada = opcionSeleccionada;
             inicioSesion = new InicioSesion(this.usuarios);
+        }
+        public GestorApp(Usuario usuario)
+        {
+            if (usuario is Cliente)
+            {
+                this.cliente = (Cliente)usuario;
+            }
+            else if(usuario is Administrador)
+            {
+                this.admin = (Administrador)usuario;
+            }
         }
 
 
@@ -43,7 +59,17 @@ namespace CaferiApp
                 Console.WriteLine("Error: no se pudo iniciar sesión o registrar.");
             }
         }
+        public void MenuAdministrador()
+        {
+
+        }
+        public void MenuCliente()
+        {
+            
+        }
 
     }
 }
+
+
 
