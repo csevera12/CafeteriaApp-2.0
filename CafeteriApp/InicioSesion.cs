@@ -12,8 +12,10 @@ namespace CaferiApp
             this.usuarios = usuarios;
         }
 
-        public Usuario ValidarCredenciales(bool modoRegistro = false)
+        public Usuario ValidarCredenciales(bool modoRegistro)
         {
+            modoRegistro = false;
+
             int anchoPantalla = Console.WindowWidth - 2;
 
             Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
@@ -114,8 +116,7 @@ namespace CaferiApp
                         lineas.Add(linea);
                     }
                 }
-
-                System.IO.File.WriteAllLines(rutaArchivo, lineas);
+                File.WriteAllLines(rutaArchivo, lineas);
             }
             catch (Exception e)
             {
