@@ -155,6 +155,7 @@ namespace CaferiApp
                 if(usuario is Cliente cliente)
                 {                   
                     bool valida = false;
+
                     while (!valida)
                     {
                         int opcion = gestorApp.MenuCliente();
@@ -181,6 +182,7 @@ namespace CaferiApp
                 else if(usuario is Administrador admin)
                 {
                     bool valida = false;
+
                     while (!valida)
                     {
                         int opcion = gestorApp.MenuAdmin();

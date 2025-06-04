@@ -34,11 +34,11 @@ namespace CaferiApp
         {
             if (usuario is Cliente)
             {
-                this.cliente = (Cliente)usuario;
+                usuario = (Cliente)usuario;
             }
             else if(usuario is Administrador)
             {
-                this.admin = (Administrador)usuario;
+                usuario = (Administrador)usuario;
             }
         }
 
@@ -64,7 +64,7 @@ namespace CaferiApp
                 }
             }
         }
-        
+
 
         /* public  void HacerPedido(string fichero)
         {
@@ -113,14 +113,24 @@ namespace CaferiApp
         }
         */
 
+        public string CentrarTexto(string texto, int anchoPantalla)
+        {
+            int espacios = (anchoPantalla - texto.Length) / 2;
+
+            return espacios > 0 ? new string(' ', espacios) + texto : texto;
+        }
+
         public int MenuAdmin()
         {
-            Console.WriteLine("MENÚ ADMIN");
-            Console.WriteLine("1. Gestionar productos");
-            Console.WriteLine("2. Cobrar pedidos");
-            Console.WriteLine("3. Comprar productos");
-            Console.WriteLine("4. Modificar productos");
-            Console.WriteLine("Elige una opción:");
+            int anchoPantalla = Console.WindowWidth - 2;
+
+            Console.WriteLine(CentrarTexto("MENÚ ADMIN", anchoPantalla));
+            Console.WriteLine(CentrarTexto("1.-Crear producto", anchoPantalla));
+            Console.WriteLine(CentrarTexto("2.-Eliminar producto", anchoPantalla));
+            Console.WriteLine(CentrarTexto("3.-Ver pedidos y cobrarlos", anchoPantalla));
+            Console.WriteLine(CentrarTexto("4.-Comprar productos", anchoPantalla));
+            Console.WriteLine(CentrarTexto("5.-Modificar producto", anchoPantalla));
+            Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
             int numeroOpcion = Convert.ToInt32(opcion);
 
@@ -128,10 +138,12 @@ namespace CaferiApp
         }
         public int MenuCliente()
         {
-            Console.WriteLine("MENÚ CLIENTE");
-            Console.WriteLine("1. Comprar");
-            Console.WriteLine("2. Reservar mesa");
-            Console.WriteLine("Elige una opción:");
+            int anchoPantalla = Console.WindowWidth - 2;
+
+            Console.WriteLine(CentrarTexto("MENÚ CLIENTE",anchoPantalla));
+            Console.WriteLine(CentrarTexto("1.-Hacer pedido", anchoPantalla));
+            Console.WriteLine(CentrarTexto("2.-Reservar mesa", anchoPantalla));
+            Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
             int numeroOpcion = Convert.ToInt32(opcion);
 
