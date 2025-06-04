@@ -12,9 +12,9 @@ namespace CaferiApp
             this.usuarios = usuarios;
         }
 
-        public Usuario ValidarCredenciales(bool modoRegistro)
+        public Usuario ValidarCredenciales()
         {
-            modoRegistro = false;
+            bool modoRegistro = false;
 
             int anchoPantalla = Console.WindowWidth - 2;
 
@@ -39,7 +39,6 @@ namespace CaferiApp
                 {
                     Usuario nuevo = usuarios.Find(u => u.Nombre == nombre && u.Contrasena == contrasena);
                     return nuevo;
-
                 }
                 else
                 {
@@ -71,7 +70,6 @@ namespace CaferiApp
                     Console.WriteLine("Saliendo de la aplicación...");
                     return null;
                 }
-
             }
         }
 

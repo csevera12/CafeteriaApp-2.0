@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,7 +48,7 @@ namespace CaferiApp
             }
             else if (opcionSeleccionada == 1) // Registro
             {
-                usuario = inicioSesion.ValidarCredenciales(true);
+                usuario = inicioSesion.ValidarCredenciales();
             }
 
             if (usuario != null)
@@ -63,9 +64,16 @@ namespace CaferiApp
         {
 
         }
-        public void MenuCliente()
+        public int MenuCliente()
         {
-            
+            Console.WriteLine("MENÚ CLIENTE");
+            Console.WriteLine("1. Comprar");
+            Console.WriteLine("2. Reservar mesa");
+            Console.WriteLine("Elige una opción:");
+            string opcion = Console.ReadLine();
+            int numeroOpcion = Convert.ToInt32(opcion);
+
+            return numeroOpcion;
         }
 
     }

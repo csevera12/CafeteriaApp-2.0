@@ -161,11 +161,36 @@ namespace CaferiApp
                 GestorApp gestorApp = new GestorApp(usuario);
                 if(usuario is Cliente cliente)
                 {
+                    
+                    bool valida = false;
+                    while (!valida)
+                    {
+                        int opcion = gestorApp.MenuCliente();
+                        switch (opcion)
+                        {
+                            case 1:
+                                // Lógica para comprar
+                                Console.WriteLine(CentrarTexto("Comprando...", anchoPantalla));
+                                valida = true;
+                                break;
+                            case 2:
+                                // Lógica para reservar mesa
+                                Console.WriteLine(CentrarTexto("Reservando mesa...", anchoPantalla));
+                                valida = true;
+                                break;
+                            default:
+                                Console.WriteLine(CentrarTexto("Opción no válida", anchoPantalla));
+                                valida = false;
+                                break;
+                        }
+                    }
+
+                }
+                else if(usuario is Administrador admin)
+                {
                     gestorApp.MenuAdministrador();
-                    //gestorApp.ClientePide();
                 }
             }
-
             else
             {
                 Console.WriteLine(CentrarTexto("Credenciales incorrectas. Registrate", anchoPantalla));
