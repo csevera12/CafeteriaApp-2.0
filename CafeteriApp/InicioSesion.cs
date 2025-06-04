@@ -13,26 +13,44 @@ namespace CaferiApp
         }
 
         public Usuario ValidarCredenciales()
-        {
-            bool modoRegistro = false;
-
+        { 
+            bool encontrado = false;
+            int intentos = 3;
             int anchoPantalla = Console.WindowWidth - 2;
+            Usuario usuarioGA = null;
 
-            Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
-            string nombre = Console.ReadLine();
-
-            Console.Write(CentrarTexto("Contraseña: ",anchoPantalla));
-            string contrasena = Console.ReadLine();
-
-            foreach (Usuario usuario in usuarios)
+            while (intentos < 3 && !encontrado)
             {
-                if (nombre == usuario.Nombre && contrasena == usuario.Contrasena)
+                Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
+                string nombre = Console.ReadLine();
+
+                Console.Write(CentrarTexto("Contraseña: ", anchoPantalla));
+                string contrasena = Console.ReadLine();
+                
+                foreach (Usuario usuario in usuarios)
                 {
-                    Console.WriteLine("BIENVENIDO " + nombre + " !");
-                    return usuario;
+                    if (nombre == usuario.Nombre && contrasena == usuario.Contrasena)
+                    {
+                        List<Usuario> clientes = Usuario.CargarClientes("clientes.txt");
+                        usuarioGA = clientes.Find(u => u.Nombre == nombre);
+
+                        if (usuarioGA == null)
+                        {
+                            List<Usuario> admins = Usuario.CargarUsuarios("admins.txt");
+                            usuarioGA = admins.Find(u => u.Nombre == nombre);
+                        }
+                        encontrado = true;
+                    }
+                }
+                if (!encontrado)
+                {
+                    intentos--;
+                    Console.WriteLine($"Usuario o contraseña incorrectos. Quedan {intentos} intentos");
                 }
             }
-            if (modoRegistro)
+
+            return usuarioGA;
+            /*if (modoRegistro) 
             {
                 bool registrado = RegistrarUsuario(nombre, contrasena);
                 if (registrado)
@@ -71,6 +89,7 @@ namespace CaferiApp
                     return null;
                 }
             }
+            */
         }
 
         private bool RegistrarUsuario(string nombre, string contrasena)

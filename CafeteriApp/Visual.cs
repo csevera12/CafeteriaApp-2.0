@@ -86,7 +86,6 @@ namespace CaferiApp
             {
                 VisualRegistro();
             }
-
             else
             {
                 VisualInicioSesion(usuarios);
@@ -113,9 +112,6 @@ namespace CaferiApp
 
             Console.WriteLine(CentrarTexto("VERIFICANDO DE NUEVO LAS CREDENCIALES", anchoPantalla));
             Console.WriteLine();
-
-            Console.Write(CentrarTexto("Numero de teléfono: ", anchoPantalla));
-            long tlf = Convert.ToInt64(Console.ReadLine());
 
             Console.WriteLine(CentrarTexto("Registro completado", anchoPantalla));
 
@@ -187,7 +183,38 @@ namespace CaferiApp
                 }
                 else if(usuario is Administrador admin)
                 {
-                    gestorApp.MenuAdministrador();
+                    bool valida = false;
+                    while (!valida)
+                    {
+                        int opcion = gestorApp.MenuAdmin();
+                        switch (opcion)
+                        {
+                            case 1:
+                                // Lógica para comprar
+                                Console.WriteLine(CentrarTexto("Comprando...", anchoPantalla));
+                                valida = true;
+                                break;
+                            case 2:
+                                // Lógica para reservar mesa
+                                Console.WriteLine(CentrarTexto("Reservando mesa...", anchoPantalla));
+                                valida = true;
+                                break;
+                            case 3:
+                                // Lógica para ver comprar productos(añadir al stock)
+                                Console.WriteLine(CentrarTexto("Añadiendo prods...", anchoPantalla));
+                                valida = true;
+                                break;
+                            case 4:
+                                //Lógica para modificar productos
+                                Console.WriteLine(CentrarTexto("Modificando productos...", anchoPantalla));
+                                valida = true;
+                                break;
+                            default:
+                                Console.WriteLine(CentrarTexto("Opción no válida", anchoPantalla));
+                                valida = false;
+                                break;
+                        }
+                    }
                 }
             }
             else

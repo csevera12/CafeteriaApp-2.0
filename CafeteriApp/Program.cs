@@ -5,11 +5,11 @@
         static void Main(string[] args)
         {
             GestorApp ga = new GestorApp();
+            Visual visual = new Visual();
 
             List<Usuario> usuarios = Usuario.CargarUsuarios("admins.txt");
             usuarios.AddRange(Usuario.CargarClientes("clientes.txt"));
-            Visual visual = new Visual();
-
+            
             // Guardamos la opción seleccionada: 0 = iniciar sesión, 1 = registro
             int opcionSeleccionada = visual.MostrarMenuInicio(usuarios);
 

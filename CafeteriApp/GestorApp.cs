@@ -65,10 +65,7 @@ namespace CaferiApp
                 Console.WriteLine("Error: no se pudo iniciar sesión o registrar.");
             }
         }
-        public void MenuAdministrador()
-        {
-
-        }
+        
 
         public  void HacerPedido(string fichero)
         {
@@ -116,31 +113,19 @@ namespace CaferiApp
             Console.WriteLine($"El precio total del pedido es :{precioTotal}");
         }
 
-        public void MenuC(string opcion)
+        public int MenuAdmin()
         {
-            bool salir = false;
+            Console.WriteLine("MENÚ ADMIN");
+            Console.WriteLine("1. Gestionar productos");
+            Console.WriteLine("2. Cobrar pedidos");
+            Console.WriteLine("3. Comprar productos");
+            Console.WriteLine("4. Modificar productos");
+            Console.WriteLine("Elige una opción:");
+            string opcion = Console.ReadLine();
+            int numeroOpcion = Convert.ToInt32(opcion);
 
-            while (!salir)
-            {
-                switch (opcion)
-                {
-                    case "1":
-                        HacerPedido("productos.txt");
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        break;
-                    case "S":
-                        salir = true;
-                        break;
-                    default:
-                        Console.WriteLine("Opción incorrecta, inténtalo de nuevo ");
-                        break;
-                }
-            }
+            return numeroOpcion;
         }
-
         public int MenuCliente()
         {
             Console.WriteLine("MENÚ CLIENTE");
@@ -149,8 +134,6 @@ namespace CaferiApp
             Console.WriteLine("Elige una opción:");
             string opcion = Console.ReadLine();
             int numeroOpcion = Convert.ToInt32(opcion);
-
-            MenuC(opcion);
 
             return numeroOpcion;
         }

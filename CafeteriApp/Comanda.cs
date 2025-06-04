@@ -24,6 +24,6 @@ namespace CaferiApp
         public int Mesa { get => mesa; set => mesa = value; }
         public int Codigo { get => codigo; set => codigo = value; }
         public int Tlf { get => tlf; set => tlf = value; }
-        internal List<Producto> Productos { get => productos; set => productos = value; }
+        public List<Producto> Productos { get => productos; set => productos = value; }
     }
 }
