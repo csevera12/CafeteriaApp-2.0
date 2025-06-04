@@ -95,8 +95,10 @@ namespace CaferiApp
         public bool RegistrarUsuario()
         {
             int anchoPantalla = Console.WindowWidth - 2;
+            bool registrado = false;
             bool existe = false;
-            while (!existe)
+
+            while (!registrado)
             {
                 Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
                 string nombre = Console.ReadLine();
@@ -112,22 +114,22 @@ namespace CaferiApp
                     if (u.Nombre == nombre)
                     {
                         existe = true;
+
                     }
                 }
-
                 if (existe)
                 {
-                    Console.WriteLine("El nombre de usuario ya está registrado. Intenta con otro.");
-
+                    Console.WriteLine("El usuario ya existe. Por favor, elige otro nombre de usuario.");
                 }
-
-                usuarios.Add(new Cliente("C", nombre, contrasena, telefono));
-                Console.WriteLine("Usuario registrado correctamente.");
-                GuardarClientes("clientes.txt");
-
+                else
+                {
+                    usuarios.Add(new Cliente("C", nombre, contrasena, telefono));
+                    Console.WriteLine("Usuario registrado correctamente.");
+                    GuardarClientes("clientes.txt");
+                    registrado = true;
+                }
             }
-
-            return true;
+            return registrado;
         }
         private void GuardarClientes(string rutaArchivo)
         {
