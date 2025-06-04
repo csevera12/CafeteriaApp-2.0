@@ -13,20 +13,20 @@ namespace CaferiApp
         }
 
         public Usuario ValidarCredenciales()
-        { 
+        {
             bool encontrado = false;
             int intentos = 3;
             int anchoPantalla = Console.WindowWidth - 2;
             Usuario usuarioGA = null;
 
-            while (intentos < 3 && !encontrado)
+            while (intentos > 0 && !encontrado)
             {
                 Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
                 string nombre = Console.ReadLine();
 
                 Console.Write(CentrarTexto("Contraseña: ", anchoPantalla));
                 string contrasena = Console.ReadLine();
-                
+
                 foreach (Usuario usuario in usuarios)
                 {
                     if (nombre == usuario.Nombre && contrasena == usuario.Contrasena)
@@ -92,30 +92,40 @@ namespace CaferiApp
             */
         }
 
-        private bool RegistrarUsuario(string nombre, string contrasena)
+        public bool RegistrarUsuario()
         {
+            int anchoPantalla = Console.WindowWidth - 2;
             bool existe = false;
-
-            foreach (Usuario u in usuarios)
+            while (!existe)
             {
-                if (u.Nombre == nombre)
+                Console.Write(CentrarTexto("Usuario: ", anchoPantalla));
+                string nombre = Console.ReadLine();
+                Console.Write(CentrarTexto("Introduce tu contraseña:", anchoPantalla));
+                string contrasena = Console.ReadLine();
+                Console.Write(CentrarTexto("Introduce tu teléfono:", anchoPantalla));
+                long telefono = Convert.ToInt64(Console.ReadLine());
+
+                existe = false;
+
+                foreach (Usuario u in usuarios)
                 {
-                    existe = true;
+                    if (u.Nombre == nombre)
+                    {
+                        existe = true;
+                    }
                 }
+
+                if (existe)
+                {
+                    Console.WriteLine("El nombre de usuario ya está registrado. Intenta con otro.");
+
+                }
+
+                usuarios.Add(new Cliente("C", nombre, contrasena, telefono));
+                Console.WriteLine("Usuario registrado correctamente.");
+                GuardarClientes("clientes.txt");
+
             }
-
-            if (existe)
-            {
-                Console.WriteLine("El nombre de usuario ya está registrado. Intenta con otro.");
-                return false;
-            }
-
-            Console.WriteLine("Introduce tu teléfono:");
-            long telefono = Convert.ToInt64(Console.ReadLine());
-
-            usuarios.Add(new Cliente("C", nombre, contrasena, telefono));
-            Console.WriteLine("Usuario registrado correctamente.");
-            GuardarClientes("clientes.txt");
 
             return true;
         }

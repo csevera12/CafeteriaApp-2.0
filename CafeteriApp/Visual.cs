@@ -113,9 +113,6 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("VERIFICANDO DE NUEVO LAS CREDENCIALES", anchoPantalla));
             Console.WriteLine();
 
-            Console.WriteLine(CentrarTexto("Registro completado", anchoPantalla));
-
-            Console.ReadKey();
         }
 
         public string CentrarTexto(string texto, int anchoPantalla)
@@ -165,7 +162,7 @@ namespace CaferiApp
                         {
                             case 1:
                                 // Lógica para comprar
-                                gestorApp.HacerPedido("productos.txt");
+                                //gestorApp.HacerPedido("productos.txt");
                                 valida = true;
                                 break;
                             case 2:

@@ -49,27 +49,26 @@ namespace CaferiApp
 
             if (opcionSeleccionada == 0) // Iniciar sesión
             {
-                usuario = inicioSesion.ValidarCredenciales(); 
+                usuario = inicioSesion.ValidarCredenciales();
             }
             else if (opcionSeleccionada == 1) // Registro
             {
-                usuario = inicioSesion.ValidarCredenciales();
-            }
-
-            if (usuario != null)
-            {
-                Console.WriteLine("Bienvenido a la aplicación de cafetería, " + usuario.Nombre);
-            }
-            else
-            {
-                Console.WriteLine("Error: no se pudo iniciar sesión o registrar.");
+                if(inicioSesion.RegistrarUsuario())
+                {
+                    Console.WriteLine("Registro exitoso. Por favor, inicie sesión.");
+                    usuario = inicioSesion.ValidarCredenciales();
+                }
+                else
+                {
+                    Console.WriteLine("Error al registrar el usuario. Inténtelo de nuevo.");
+                }
             }
         }
         
 
-        public  void HacerPedido(string fichero)
+        /* public  void HacerPedido(string fichero)
         {
-            Pedido p;
+            // Pedido p;
             string pedido = " ";
             double precioTotal = 0;
 
@@ -103,7 +102,7 @@ namespace CaferiApp
                 }
             } while (tecla.Key != ConsoleKey.Enter);
 
-            p = new Pedido(pedido);
+            // p = new Pedido(pedido);
 
             foreach(Producto prod in p.Productos)
             {
@@ -112,6 +111,7 @@ namespace CaferiApp
             }
             Console.WriteLine($"El precio total del pedido es :{precioTotal}");
         }
+        */
 
         public int MenuAdmin()
         {
