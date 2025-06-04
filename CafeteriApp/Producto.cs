@@ -41,5 +41,62 @@ namespace CaferiApp
         {
             return nombre + tipo + precio;
         }
+        public static List<Producto> CargarProductos(string ruta)
+        {
+            List<Producto> productos = new List<Producto>();
+
+            if (File.Exists(ruta))
+            {
+                string[] lineas = File.ReadAllLines(ruta);
+
+                foreach (string linea in lineas)
+                {
+                    string[] datos = linea.Split(';');
+
+                    if (datos.Length == 5)
+                    {
+                        int codigo = int.Parse(datos[0]);
+                        string nombre = datos[1];
+                        string tipo = datos[2];
+                        double precio = double.Parse(datos[3]);
+                        int stock = int.Parse(datos[4]);
+
+                        Producto producto = null;
+
+                        if (tipo.ToLower() == "salado")
+                        {
+                            producto = new Salado(codigo, nombre, tipo, precio, stock);
+                        }
+                        else if (tipo.ToLower() == "dulce")
+                        {
+                            producto = new Dulce(codigo, nombre, tipo, precio, stock);
+                        }
+                        else if (tipo.ToLower() == "bebida")
+                        {
+                            producto = new Bebida(codigo, nombre, tipo, precio, stock);
+                        }
+
+                        if (producto != null)
+                        {
+                            productos.Add(producto);
+                        }
+                    }
+                }
+            }
+
+            return productos;
+        }
+        public static void GuardarProductos(string ruta, List<Producto> productos)
+        {
+            List<string> lineas = new List<string>();
+
+            foreach (Producto p in productos)
+            {
+                string linea = $"{p.Codigo};{p.Nombre};{p.Tipo};{p.Precio};{p.Stock}";
+                lineas.Add(linea);
+            }
+
+            File.WriteAllLines(ruta, lineas);
+        }
     }
 }
