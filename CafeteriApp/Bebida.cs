@@ -12,5 +12,10 @@ namespace CaferiApp
             : base(codigo, nombre, tipo, precio, stock)
         {
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

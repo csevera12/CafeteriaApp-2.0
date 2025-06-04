@@ -88,9 +88,9 @@ namespace CaferiApp
             }
 
             else
-             {
+            {
                 VisualInicioSesion(usuarios);
-             }
+            }
 
             return seleccionarOpcion;
         }
@@ -160,8 +160,7 @@ namespace CaferiApp
                 //USUARIO y a partir de ahi, crear las funciones
                 GestorApp gestorApp = new GestorApp(usuario);
                 if(usuario is Cliente cliente)
-                {
-                    
+                {                   
                     bool valida = false;
                     while (!valida)
                     {
@@ -170,7 +169,7 @@ namespace CaferiApp
                         {
                             case 1:
                                 // Lógica para comprar
-                                Console.WriteLine(CentrarTexto("Comprando...", anchoPantalla));
+                                gestorApp.HacerPedido("productos.txt");
                                 valida = true;
                                 break;
                             case 2:

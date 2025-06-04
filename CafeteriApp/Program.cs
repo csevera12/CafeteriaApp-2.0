@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            GestorApp ga = new GestorApp();
+
             List<Usuario> usuarios = Usuario.CargarUsuarios("admins.txt");
             usuarios.AddRange(Usuario.CargarClientes("clientes.txt"));
             Visual visual = new Visual();
@@ -18,14 +20,12 @@
 
             else
             {
-                 // Creamos la app con los datos correctos
-                GestorApp ga = new GestorApp(usuarios, opcionSeleccionada);
+                // Creamos la app con los datos correctos
+                ga = new GestorApp(usuarios, opcionSeleccionada);
 
                 // Ahora sí iniciamos la app
                 ga.IniciarApp();
-            }
-            
-
+            }            
         }
     }
 }

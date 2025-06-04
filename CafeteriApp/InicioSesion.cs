@@ -122,14 +122,11 @@ namespace CaferiApp
             }
         }
 
-         public string CentrarTexto(string texto, int anchoPantalla)
+        public string CentrarTexto(string texto, int anchoPantalla)
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
 
             return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
-
     }
 }
-
-

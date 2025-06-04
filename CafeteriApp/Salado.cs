@@ -11,6 +11,12 @@ namespace CaferiApp
         public Salado(int codigo, string nombre, string tipo, double precio, int stock)
             : base(codigo, nombre, tipo, precio, stock)
         {
+
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
