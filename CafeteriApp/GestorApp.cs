@@ -36,7 +36,7 @@ namespace CaferiApp
             {
                 usuario = (Cliente)usuario;
             }
-            else if(usuario is Administrador)
+            else if (usuario is Administrador)
             {
                 usuario = (Administrador)usuario;
             }
@@ -53,7 +53,7 @@ namespace CaferiApp
             }
             else if (opcionSeleccionada == 1) // Registro
             {
-                if(inicioSesion.RegistrarUsuario())
+                if (inicioSesion.RegistrarUsuario())
                 {
                     Console.WriteLine("Registro exitoso. Por favor, inicie sesión.");
                     usuario = inicioSesion.ValidarCredenciales();
@@ -140,7 +140,7 @@ namespace CaferiApp
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            Console.WriteLine(CentrarTexto("MENÚ CLIENTE",anchoPantalla));
+            Console.WriteLine(CentrarTexto("MENÚ CLIENTE", anchoPantalla));
             Console.WriteLine(CentrarTexto("1.-Hacer pedido", anchoPantalla));
             Console.WriteLine(CentrarTexto("2.-Reservar mesa", anchoPantalla));
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
@@ -149,5 +149,125 @@ namespace CaferiApp
 
             return numeroOpcion;
         }
+        public static List<Producto> CargarProductos(string ruta)
+        {
+            List<Producto> productos = new List<Producto>();
+
+            if (File.Exists(ruta))
+            {
+                string[] lineas = File.ReadAllLines(ruta);
+
+                foreach (string linea in lineas)
+                {
+                    string[] datos = linea.Split(';');
+
+                    if (datos.Length == 5)
+                    {
+                        int codigo = int.Parse(datos[0]);
+                        string nombre = datos[1];
+                        string tipo = datos[2];
+                        double precio = double.Parse(datos[3]);
+                        int stock = int.Parse(datos[4]);
+
+                        Producto producto = null;
+
+                        if (tipo.ToLower() == "salado")
+                        {
+                            producto = new Salado(codigo, nombre, tipo, precio, stock);
+                        }
+                        else if (tipo.ToLower() == "dulce")
+                        {
+                            producto = new Dulce(codigo, nombre, tipo, precio, stock);
+                        }
+                        else if (tipo.ToLower() == "bebida")
+                        {
+                            producto = new Bebida(codigo, nombre, tipo, precio, stock);
+                        }
+
+                        if (producto != null)
+                        {
+                            productos.Add(producto);
+                        }
+                    }
+                }
+            }
+
+            return productos;
+        }
+        public static void GuardarProductos(string ruta, List<Producto> productos)
+        {
+            List<string> lineas = new List<string>();
+
+            foreach (Producto p in productos)
+            {
+                string linea = $"{p.Codigo};{p.Nombre};{p.Tipo};{p.Precio};{p.Stock}";
+                lineas.Add(linea);
+            }
+
+            File.WriteAllLines(ruta, lineas);
+        }
+
+        public static Producto CrearProducto(List<Producto> productos)
+        {
+            Console.Write("Código: ");
+            int codigo = int.Parse(Console.ReadLine());
+
+            Console.Write("Nombre: ");
+            string nombre = Console.ReadLine();
+
+            Console.Write("Tipo (salado, dulce, bebida): ");
+            string tipo = Console.ReadLine().ToLower();
+
+            Console.Write("Precio: ");
+            double precio = double.Parse(Console.ReadLine());
+
+            Console.Write("Stock: ");
+            int stock = int.Parse(Console.ReadLine());
+
+            Producto nuevo = null;
+
+            if (tipo == "salado")
+            {
+                nuevo = new Salado(codigo, nombre, tipo, precio, stock);
+            }
+            else if (tipo == "dulce")
+            {
+                nuevo = new Dulce(codigo, nombre, tipo, precio, stock);
+            }
+            else if (tipo == "bebida")
+            {
+                nuevo = new Bebida(codigo, nombre, tipo, precio, stock);
+            }
+
+            if (nuevo != null)
+            {
+                productos.Add(nuevo);
+                Console.WriteLine("Producto creado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("Tipo de producto no válido.");
+            }
+
+            return nuevo;
+        }
+        public static void EliminarProducto(List<Producto> productos)
+        {
+            Console.Write("Introduce el código del producto a eliminar: ");
+            int codigo = int.Parse(Console.ReadLine());
+
+            Producto productoAEliminar = productos.Find(p => p.Codigo == codigo);
+
+            if (productoAEliminar != null)
+            {
+                productos.Remove(productoAEliminar);
+                Console.WriteLine("Producto eliminado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
+
     }
 }

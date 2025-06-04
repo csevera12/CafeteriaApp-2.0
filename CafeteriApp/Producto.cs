@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CaferiApp
 {
-    abstract class Producto
+    public abstract class Producto
     {
         protected int codigo;
         protected string nombre;
