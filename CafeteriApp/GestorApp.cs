@@ -121,6 +121,9 @@ namespace CaferiApp
                     case "6":
                         VerProductos();
                         break;
+                    case "7":
+                        GestionarReservas();
+                        break;
                     case "S":
                         Console.WriteLine(CentrarTexto("Saliendo de la aplicación...", anchoPantalla));
                         break;
@@ -142,6 +145,7 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("4.-Añadir productos al stock", anchoPantalla));
             Console.WriteLine(CentrarTexto("5.-Modificar producto", anchoPantalla));
             Console.WriteLine(CentrarTexto("6.-Ver productos", anchoPantalla));
+            Console.WriteLine(CentrarTexto("7.-Gestionar reservas", anchoPantalla));
             Console.WriteLine(CentrarTexto("S.-Salir", anchoPantalla));
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
@@ -474,11 +478,11 @@ namespace CaferiApp
             {
                 Console.Write(CentrarTexto("Introduce tu nombre: ", anchoPantalla));
                 nombre = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(nombre))
+                if (nombre == "")
                 {
                     Console.WriteLine(CentrarTexto("El nombre no puede estar vacío.", anchoPantalla));
                 }
-            } while (string.IsNullOrWhiteSpace(nombre));
+            } while (nombre == "");
 
             string tlfTexto = "";
             int tlf = 0;
@@ -517,6 +521,139 @@ namespace CaferiApp
             File.AppendAllText("reservas.txt", reservaTxt + Environment.NewLine);
 
             Console.WriteLine(CentrarTexto("¡Reserva realizada con éxito!", anchoPantalla));
+        }
+        public static void GestionarReservas()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            string opcion = "";
+            do
+            {
+                Console.WriteLine(CentrarTexto("GESTIÓN DE RESERVAS", anchoPantalla));
+                Console.WriteLine(CentrarTexto("1.-Ver reservas", anchoPantalla));
+                Console.WriteLine(CentrarTexto("2.-Modificar reserva", anchoPantalla));
+                Console.WriteLine(CentrarTexto("3.-Eliminar reserva", anchoPantalla));
+                Console.WriteLine(CentrarTexto("S.-Salir", anchoPantalla));
+                Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
+                opcion = Console.ReadLine();
+
+                switch (opcion)
+                {
+                    case "1":
+                        VerReservas();
+                        break;
+                    case "2":
+                        ModificarReserva();
+                        break;
+                    case "3":
+                        EliminarReserva();
+                        break;
+                    case "S":
+                        Console.WriteLine(CentrarTexto("Saliendo de gestión de reservas...", anchoPantalla));
+                        break;
+                    default:
+                        Console.WriteLine(CentrarTexto("Opción no válida. Inténtalo de nuevo.", anchoPantalla));
+                        break;
+                }
+                Console.WriteLine();
+            } while (opcion != "S");
+        }
+        public static void VerReservas()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            if (reservas.Count == 0)
+            {
+                Console.WriteLine(CentrarTexto("No hay reservas registradas.", anchoPantalla));
+            }
+            else
+            {
+                Console.WriteLine(CentrarTexto("LISTA DE RESERVAS:", anchoPantalla));
+                for (int i = 0; i < reservas.Count; i++)
+                {
+                    Reserva r = reservas[i];
+                    Console.WriteLine(CentrarTexto($"{i + 1}. {r.Nombre} - {r.Tlf} - {r.NumComensales} comensales - {r.Fecha:dd/MM/yyyy} {r.Hora}", anchoPantalla));
+                }
+            }
+        }
+
+        public static void ModificarReserva()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            VerReservas();
+            if (reservas.Count != 0)
+            {
+                Console.Write(CentrarTexto("Introduce el número de reserva a modificar: ", anchoPantalla));
+                string input = Console.ReadLine();
+                int idx = 0;
+                bool idxValido = int.TryParse(input, out idx) && idx > 0 && idx <= reservas.Count;
+                if (idxValido)
+                {
+                    Reserva reserva = reservas[idx - 1];
+                    Console.Write(CentrarTexto("Nuevo nombre (deja vacío para no cambiar): ", anchoPantalla));
+                    string nuevoNombre = Console.ReadLine();
+                    if (nuevoNombre != "")
+                        reserva.Nombre = nuevoNombre;
+
+                    Console.Write(CentrarTexto("Nuevo teléfono (deja vacío para no cambiar): ", anchoPantalla));
+                    string nuevoTlf = Console.ReadLine();
+                    if (nuevoTlf != "" && nuevoTlf.Length == 9 &&
+                        (nuevoTlf.StartsWith("6") || nuevoTlf.StartsWith("7") || nuevoTlf.StartsWith("8")) &&
+                        int.TryParse(nuevoTlf, out int tlf))
+                    {
+                        reserva.Tlf = tlf;
+                    }
+
+                    Console.Write(CentrarTexto("Nuevo número de comensales (deja vacío para no cambiar): ", anchoPantalla));
+                    string nuevoComensales = Console.ReadLine();
+                    if (nuevoComensales != "" && int.TryParse(nuevoComensales, out int comensales) && comensales > 0)
+                    {
+                        reserva.NumComensales = comensales;
+                    }
+
+                    Console.Write(CentrarTexto("Nueva fecha (dd/MM/yyyy, deja vacío para no cambiar): ", anchoPantalla));
+                    string nuevaFecha = Console.ReadLine();
+                    DateTime fecha;
+                    if (nuevaFecha != "" && DateTime.TryParseExact(nuevaFecha, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fecha))
+                    {
+                        reserva.Fecha = fecha;
+                    }
+
+                    Console.Write(CentrarTexto("Nueva hora (HH:mm, deja vacío para no cambiar): ", anchoPantalla));
+                    string nuevaHora = Console.ReadLine();
+                    TimeOnly hora;
+                    if (nuevaHora != "" && TimeOnly.TryParse(nuevaHora, out hora))
+                    {
+                        reserva.Hora = hora;
+                    }
+
+                    Console.WriteLine(CentrarTexto("Reserva modificada correctamente.", anchoPantalla));
+                }
+                else
+                {
+                    Console.WriteLine(CentrarTexto("Selección no válida.", anchoPantalla));
+                }
+            }
+        }
+
+        public static void EliminarReserva()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            VerReservas();
+            if (reservas.Count != 0)
+            {
+                Console.Write(CentrarTexto("Introduce el número de reserva a eliminar: ", anchoPantalla));
+                string input = Console.ReadLine();
+                int idx = 0;
+                bool idxValido = int.TryParse(input, out idx) && idx > 0 && idx <= reservas.Count;
+                if (idxValido)
+                {
+                    reservas.RemoveAt(idx - 1);
+                    Console.WriteLine(CentrarTexto("Reserva eliminada correctamente.", anchoPantalla));
+                }
+                else
+                {
+                    Console.WriteLine(CentrarTexto("Selección no válida.", anchoPantalla));
+                }
+            }
         }
     }
 }
