@@ -17,7 +17,7 @@ namespace CaferiApp
 
         static List<Producto> productosDisponibles;
         int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
-
+        
 
         public GestorApp(List<Usuario> usuarios, int opcionSeleccionada)
         {
@@ -66,7 +66,7 @@ namespace CaferiApp
         }
 
 
-        /* public  void HacerPedido(string fichero)
+        /* public static void HacerPedido(string fichero)
         {
             // Pedido p;
             string pedido = " ";
@@ -110,17 +110,78 @@ namespace CaferiApp
 
             }
             Console.WriteLine($"El precio total del pedido es :{precioTotal}");
-        }
-        */
+        }*/
+       
 
-        public string CentrarTexto(string texto, int anchoPantalla)
+        public static string CentrarTexto(string texto, int anchoPantalla)
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
 
             return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
-
-        public int MenuAdmin()
+        public static void OptCliente()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            string opcion = "";
+            while (opcion != "S")
+            {
+                opcion = GestorApp.MenuCliente();
+                switch (opcion)
+                {
+                    case "1":
+                        //GestorApp.HacerPedido("productos.txt");
+                        break;
+                    case "2":
+                        //GestorApp.VerPedidos();
+                        break;
+                    case "S":
+                        Console.WriteLine(CentrarTexto("Saliendo de la aplicación...", anchoPantalla));
+                        break;
+                    default:
+                        Console.WriteLine(CentrarTexto("Opción no válida. Inténtalo de nuevo.", anchoPantalla));
+                        break;
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void OptAdmin()
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+            string opcion = "";
+            while (opcion != "S")
+            {
+                opcion = GestorApp.MenuAdmin();
+                switch (opcion)
+                {
+                    case "1":
+                        CrearProducto(productosDisponibles);
+                        break;
+                    case "2":
+                        EliminarProducto(productosDisponibles);
+                        break;
+                    case "3":
+                        //GestorApp.VerPedidos();
+                        break;
+                    case "4":
+                        //GestorApp.AñadirStock();
+                        break;
+                    case "5":
+                        //GestorApp.ModificarProducto();
+                        break;
+                    case "6":
+                        //GestorApp.VerProductos();
+                        break;
+                    case "S":
+                        Console.WriteLine(CentrarTexto("Saliendo de la aplicación...", anchoPantalla));
+                        break;
+                    default:
+                        Console.WriteLine(CentrarTexto("Opción no válida. Inténtalo de nuevo.", anchoPantalla));
+                        break;
+                }
+                Console.WriteLine();
+            }
+        }
+        public static string MenuAdmin()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
@@ -128,26 +189,27 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("1.-Crear producto", anchoPantalla));
             Console.WriteLine(CentrarTexto("2.-Eliminar producto", anchoPantalla));
             Console.WriteLine(CentrarTexto("3.-Ver pedidos y cobrarlos", anchoPantalla));
-            Console.WriteLine(CentrarTexto("4.-Comprar productos", anchoPantalla));
+            Console.WriteLine(CentrarTexto("4.-Añadir productos al stock", anchoPantalla));
             Console.WriteLine(CentrarTexto("5.-Modificar producto", anchoPantalla));
+            Console.WriteLine(CentrarTexto("6.-Ver productos", anchoPantalla));
+            Console.WriteLine(CentrarTexto("S.-Salir", anchoPantalla));
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
-            int numeroOpcion = Convert.ToInt32(opcion);
-
-            return numeroOpcion;
+            
+            return opcion;
         }
-        public int MenuCliente()
+        public static string MenuCliente()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
             Console.WriteLine(CentrarTexto("MENÚ CLIENTE", anchoPantalla));
             Console.WriteLine(CentrarTexto("1.-Hacer pedido", anchoPantalla));
             Console.WriteLine(CentrarTexto("2.-Reservar mesa", anchoPantalla));
+            Console.WriteLine(CentrarTexto("S.-Salir", anchoPantalla));
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
-            int numeroOpcion = Convert.ToInt32(opcion);
 
-            return numeroOpcion;
+            return opcion;
         }
         public static Producto CrearProducto(List<Producto> productos)
         {

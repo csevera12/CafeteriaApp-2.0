@@ -149,71 +149,17 @@ namespace CaferiApp
             if (usuario != null)
             {
                 Console.WriteLine(CentrarTexto("Bienvenido " + usuario.Nombre + "!", anchoPantalla));
-                //PARA HACER QUE FUNCIONE LA APP, SE DEBE CREAR UNA INSTANCIA DE GestorApp CON EL
-                //USUARIO y a partir de ahi, crear las funciones
-                GestorApp gestorApp = new GestorApp(usuario);
-                if(usuario is Cliente cliente)
-                {                   
-                    bool valida = false;
-
-                    while (!valida)
-                    {
-                        int opcion = gestorApp.MenuCliente();
-                        switch (opcion)
-                        {
-                            case 1:
-                                // Lógica para comprar
-                                //gestorApp.HacerPedido("productos.txt");
-                                valida = true;
-                                break;
-                            case 2:
-                                // Lógica para reservar mesa
-                                Console.WriteLine(CentrarTexto("Reservando mesa...", anchoPantalla));
-                                valida = true;
-                                break;
-                            default:
-                                Console.WriteLine(CentrarTexto("Opción no válida", anchoPantalla));
-                                valida = false;
-                                break;
-                        }
-                    }
-
-                }
-                else if(usuario is Administrador admin)
+                if(usuario.Permisos == "C")
                 {
-                    bool valida = false;
-
-                    while (!valida)
-                    {
-                        int opcion = gestorApp.MenuAdmin();
-                        switch (opcion)
-                        {
-                            case 1:
-                                // Lógica para comprar
-                                Console.WriteLine(CentrarTexto("Comprando...", anchoPantalla));
-                                valida = true;
-                                break;
-                            case 2:
-                                // Lógica para reservar mesa
-                                Console.WriteLine(CentrarTexto("Reservando mesa...", anchoPantalla));
-                                valida = true;
-                                break;
-                            case 3:
-                                // Lógica para ver comprar productos(añadir al stock)
-                                Console.WriteLine(CentrarTexto("Añadiendo prods...", anchoPantalla));
-                                valida = true;
-                                break;
-                            case 4:
-                                //Lógica para modificar productos
-                                Console.WriteLine(CentrarTexto("Modificando productos...", anchoPantalla));
-                                valida = true;
-                                break;
-                            default:
-                                Console.WriteLine(CentrarTexto("Opción no válida", anchoPantalla));
-                                valida = false;
-                                break;
-                        }
-                    }
+                    GestorApp.OptCliente();
+                }
+                else if (usuario.Permisos == "A")
+                {
+                    GestorApp.OptAdmin();
+                }
+                else
+                {
+                    Console.WriteLine(CentrarTexto("Permisos no válidos.", anchoPantalla));
                 }
             }
             else
