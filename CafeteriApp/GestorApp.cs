@@ -218,14 +218,14 @@ namespace CaferiApp
             productos = Producto.CargarProductos("productos.txt");
             Console.WriteLine();
             Console.WriteLine(CentrarTexto("Productos disponibles:",anchoPantalla));
-            Console.WriteLine(CentrarTexto("Código\tTipo\tNombre\tPrecio\tStock",anchoPantalla));
+            Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio\tStock",anchoPantalla));
             foreach (Producto producto in productos)
             {
                 Console.WriteLine(CentrarTexto(producto.ToString(),anchoPantalla));
             }
 
         }
-        public static Producto CrearProducto()
+        public static void CrearProducto()
         {
              productos = Producto.CargarProductos("productos.txt");
             Console.Write("Código: ");
@@ -262,13 +262,12 @@ namespace CaferiApp
             {
                 productos.Add(nuevo);
                 Console.WriteLine("Producto creado correctamente.");
+                Producto.GuardarProductos("productos.txt", productos);
             }
             else
             {
                 Console.WriteLine("Tipo de producto no válido.");
             }
-
-            return nuevo;
         }
         public static void EliminarProducto()
         {
@@ -287,6 +286,7 @@ namespace CaferiApp
             {
                 Console.WriteLine("Producto no encontrado.");
             }
+            Producto.GuardarProductos("productos.txt", productos);
         }
 
     }

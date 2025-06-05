@@ -53,9 +53,9 @@ namespace CaferiApp
                     if (datos.Length == 5)
                     {
                         int codigo = int.Parse(datos[0]);
-                        double precio = double.Parse(datos[1]);
+                        string nombre = datos[1];
                         string tipo = datos[2];
-                        string nombre = datos[3];
+                        double precio = double.Parse(datos[3]);
                         int stock = int.Parse(datos[4]);
 
                         Producto producto = null;
