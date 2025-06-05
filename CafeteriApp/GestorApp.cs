@@ -41,8 +41,6 @@ namespace CaferiApp
                 usuario = (Administrador)usuario;
             }
         }
-
-
         public void IniciarApp()
         {
             Usuario usuario = null;
@@ -64,62 +62,13 @@ namespace CaferiApp
                 }
             }
         }
-
-
-        /* public static void HacerPedido(string fichero)
-        {
-            // Pedido p;
-            string pedido = " ";
-            double precioTotal = 0;
-
-            string[] partes = File.ReadAllLines(fichero);
-
-            int selectedIndex = 0;
-
-            Console.Clear();
-            Console.WriteLine("Seleccione una opción con las flechas y presione Enter:");
-
-            for(int i = 0;i<productosDisponibles.Count;i++)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(partes[i]);
-            }
-            ConsoleKeyInfo tecla = Console.ReadKey(true);
-
-            do
-            {
-                for (int i = 0; i < productosDisponibles.Count; i++)
-                {
-                    if (i == selectedIndex && tecla.Key == ConsoleKey.UpArrow || tecla.Key == ConsoleKey.DownArrow)
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-
-                        if (tecla.Equals(ConsoleKey.Enter))
-                        {
-                            Console.WriteLine($"Has seleccionado : {pedido}");
-                        }
-                    }
-                }
-            } while (tecla.Key != ConsoleKey.Enter);
-
-            // p = new Pedido(pedido);
-
-            foreach(Producto prod in p.Productos)
-            {
-                precioTotal += prod.Precio;
-
-            }
-            Console.WriteLine($"El precio total del pedido es :{precioTotal}");
-        }*/
-
-
         public static string CentrarTexto(string texto, int anchoPantalla)
         {
             int espacios = (anchoPantalla - texto.Length) / 2;
 
             return espacios > 0 ? new string(' ', espacios) + texto : texto;
         }
-        public static void OptCliente()
+        public static void OptCliente(Usuario usuario)
         {
             int anchoPantalla = Console.WindowWidth - 2;
             string opcion = "";
@@ -129,7 +78,7 @@ namespace CaferiApp
                 switch (opcion)
                 {
                     case "1":
-                        //GestorApp.HacerPedido("productos.txt");
+                        HacerPedido(usuario);
                         break;
                     case "2":
                         //GestorApp.VerPedidos();
@@ -417,6 +366,67 @@ namespace CaferiApp
                 Console.WriteLine(CentrarTexto(producto.ToString(), anchoPantalla));
             }
 
+        }
+        public static void HacerPedido(Usuario usuario)
+        {
+            productos = Producto.CargarProductos("productos.txt");
+            List<Comanda> pedidos = new List<Comanda>();
+            List<Producto> productosPedidos = new List<Producto>();
+            double precioTotal = 0;
+            int anchoPantalla = Console.WindowWidth - 2;
+            bool seguirPidiendo = true;
+            int mesa = 0;
+
+            int codigo = Comanda.VerCodigo("pedidos.txt");
+            
+
+            Console.WriteLine(CentrarTexto("Productos disponibles:", anchoPantalla));
+            Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio", anchoPantalla));
+            foreach (Producto producto in productos)
+            {
+                Console.WriteLine(CentrarTexto($"{producto.Codigo}-{producto.Nombre}-{producto.Tipo}-{producto.Precio}", anchoPantalla));
+            }
+            Console.WriteLine();
+
+            while(seguirPidiendo)
+            {
+                Console.Write(CentrarTexto("Introduce el código del producto que quieres pedir: ", anchoPantalla));
+                codigo = int.Parse(Console.ReadLine());
+                Producto productoSeleccionado = productos.Find(p => p.Codigo == codigo);
+
+                if (productoSeleccionado != null)
+                {
+                    Console.Write(CentrarTexto($"En qué mesa estás sentado?", anchoPantalla));
+                    mesa = int.Parse(Console.ReadLine());
+                    Console.Write(CentrarTexto("Introduce la cantidad que quieres pedir: ", anchoPantalla));
+                    int cantidad = int.Parse(Console.ReadLine());
+                    if (cantidad <= productoSeleccionado.Stock)
+                    {
+                        precioTotal += productoSeleccionado.Precio * cantidad;
+                        productoSeleccionado.Stock -= cantidad;
+                        Console.WriteLine(CentrarTexto($"Pedido realizado: {cantidad} {productoSeleccionado.Nombre}(s).", anchoPantalla));
+                        Producto.GuardarProductos("productos.txt", productos);
+                        productosPedidos.Add(productoSeleccionado);
+                    }
+                    else
+                    {
+                        Console.WriteLine(CentrarTexto("No hay suficiente stock disponible.", anchoPantalla));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(CentrarTexto("Producto no encontrado.", anchoPantalla));
+                }
+
+                Console.Write(CentrarTexto("¿Quieres añadir otro producto? (S/N): ", anchoPantalla));
+
+                if(Console.ReadLine().ToUpper() != "S")
+                {
+                    seguirPidiendo = false;
+                }
+            }
+            
+            //pedidos.Add(productosPedidos,mesa,codigo,usuario.Telefono);
         }
     }
 }

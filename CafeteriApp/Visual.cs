@@ -154,7 +154,7 @@ namespace CaferiApp
                 Console.WriteLine();
                 if (usuario.Permisos == "C")
                 {
-                    GestorApp.OptCliente();
+                    GestorApp.OptCliente(usuario);
                 }
                 else if (usuario.Permisos == "A")
                 {
