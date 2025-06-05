@@ -37,10 +37,7 @@ namespace CaferiApp
         public double Precio { get => precio; set => precio = value; }
         public int Stock { get => stock; set => stock = value; }
 
-        public override string ToString()
-        {
-            return nombre + tipo + precio;
-        }
+        
         public static List<Producto> CargarProductos(string ruta)
         {
             List<Producto> productos = new List<Producto>();
@@ -56,9 +53,9 @@ namespace CaferiApp
                     if (datos.Length == 5)
                     {
                         int codigo = int.Parse(datos[0]);
-                        string nombre = datos[1];
+                        double precio = double.Parse(datos[1]);
                         string tipo = datos[2];
-                        double precio = double.Parse(datos[3]);
+                        string nombre = datos[3];
                         int stock = int.Parse(datos[4]);
 
                         Producto producto = null;
@@ -97,6 +94,10 @@ namespace CaferiApp
             }
 
             File.WriteAllLines(ruta, lineas);
+        }
+        public override string ToString()
+        {
+            return $"{codigo}-{tipo}-{nombre}-{precio}-{stock}";
         }
     }
 }

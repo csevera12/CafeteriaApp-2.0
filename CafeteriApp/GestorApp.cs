@@ -15,7 +15,7 @@ namespace CaferiApp
         Cliente cliente;
         Administrador admin;
 
-        static List<Producto> productosDisponibles;
+        static List<Producto> productos;
         int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
         
 
@@ -154,22 +154,22 @@ namespace CaferiApp
                 switch (opcion)
                 {
                     case "1":
-                        CrearProducto(productosDisponibles);
+                        CrearProducto();
                         break;
                     case "2":
-                        EliminarProducto(productosDisponibles);
+                        EliminarProducto();
                         break;
                     case "3":
-                        //GestorApp.VerPedidos();
+                        //VerPedidos();
                         break;
                     case "4":
-                        //GestorApp.AñadirStock();
+                        //AñadirStock();
                         break;
                     case "5":
-                        //GestorApp.ModificarProducto();
+                        //ModificarProducto();
                         break;
                     case "6":
-                        //GestorApp.VerProductos();
+                        VerProductos();
                         break;
                     case "S":
                         Console.WriteLine(CentrarTexto("Saliendo de la aplicación...", anchoPantalla));
@@ -211,8 +211,23 @@ namespace CaferiApp
 
             return opcion;
         }
-        public static Producto CrearProducto(List<Producto> productos)
+        public static void VerProductos()
         {
+            int anchoPantalla = Console.WindowWidth - 2;
+
+            productos = Producto.CargarProductos("productos.txt");
+            Console.WriteLine();
+            Console.WriteLine(CentrarTexto("Productos disponibles:",anchoPantalla));
+            Console.WriteLine(CentrarTexto("Código\tTipo\tNombre\tPrecio\tStock",anchoPantalla));
+            foreach (Producto producto in productos)
+            {
+                Console.WriteLine(CentrarTexto(producto.ToString(),anchoPantalla));
+            }
+
+        }
+        public static Producto CrearProducto()
+        {
+             productos = Producto.CargarProductos("productos.txt");
             Console.Write("Código: ");
             int codigo = int.Parse(Console.ReadLine());
 
@@ -255,8 +270,9 @@ namespace CaferiApp
 
             return nuevo;
         }
-        public static void EliminarProducto(List<Producto> productos)
+        public static void EliminarProducto()
         {
+            productos = Producto.CargarProductos("productos.txt");
             Console.Write("Introduce el código del producto a eliminar: ");
             int codigo = int.Parse(Console.ReadLine());
 

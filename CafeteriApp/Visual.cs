@@ -148,8 +148,11 @@ namespace CaferiApp
 
             if (usuario != null)
             {
+                
                 Console.WriteLine(CentrarTexto("Bienvenido " + usuario.Nombre + "!", anchoPantalla));
-                if(usuario.Permisos == "C")
+                Console.WriteLine();
+                Console.WriteLine();
+                if (usuario.Permisos == "C")
                 {
                     GestorApp.OptCliente();
                 }
