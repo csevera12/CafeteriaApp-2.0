@@ -17,7 +17,7 @@ namespace CaferiApp
 
         static List<Producto> productos;
         int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
-        
+
 
         public GestorApp(List<Usuario> usuarios, int opcionSeleccionada)
         {
@@ -111,7 +111,7 @@ namespace CaferiApp
             }
             Console.WriteLine($"El precio total del pedido es :{precioTotal}");
         }*/
-       
+
 
         public static string CentrarTexto(string texto, int anchoPantalla)
         {
@@ -160,7 +160,7 @@ namespace CaferiApp
                         EliminarProducto();
                         break;
                     case "3":
-                        //VerPedidos();
+                        VerPedidosYCobrar();
                         break;
                     case "4":
                         //AñadirStock();
@@ -195,7 +195,7 @@ namespace CaferiApp
             Console.WriteLine(CentrarTexto("S.-Salir", anchoPantalla));
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
-            
+
             return opcion;
         }
         public static string MenuCliente()
@@ -209,6 +209,7 @@ namespace CaferiApp
             Console.Write(CentrarTexto("Elige una opción:", anchoPantalla));
             string opcion = Console.ReadLine();
 
+
             return opcion;
         }
         public static void VerProductos()
@@ -217,17 +218,17 @@ namespace CaferiApp
 
             productos = Producto.CargarProductos("productos.txt");
             Console.WriteLine();
-            Console.WriteLine(CentrarTexto("Productos disponibles:",anchoPantalla));
-            Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio\tStock",anchoPantalla));
+            Console.WriteLine(CentrarTexto("Productos disponibles:", anchoPantalla));
+            Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio\tStock", anchoPantalla));
             foreach (Producto producto in productos)
             {
-                Console.WriteLine(CentrarTexto(producto.ToString(),anchoPantalla));
+                Console.WriteLine(CentrarTexto(producto.ToString(), anchoPantalla));
             }
 
         }
         public static void CrearProducto()
         {
-             productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos("productos.txt");
             Console.Write("Código: ");
             int codigo = int.Parse(Console.ReadLine());
 
@@ -287,6 +288,38 @@ namespace CaferiApp
                 Console.WriteLine("Producto no encontrado.");
             }
             Producto.GuardarProductos("productos.txt", productos);
+        }
+
+        public static void VerPedidosYCobrar()
+        {
+            string rutaTxt = "pedidos.txt";
+
+            List<string> pedidos = File.ReadAllLines(rutaTxt).ToList();
+
+            if (pedidos.Count == 0)
+            {
+                Console.WriteLine("En estos momentos no hay pedidos");
+            }
+
+            Console.WriteLine("PEDIDOS: ");
+
+            for (int i = 0; i < pedidos.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}- {pedidos[i]}.");
+            }
+
+            Console.WriteLine("Introduce el número de pedido a cobrar: ");
+            int opcion = int.Parse(Console.ReadLine());
+
+            if (opcion > 0 && opcion <= pedidos.Count)
+            {
+                pedidos.RemoveAt(opcion - 1);
+
+                File.WriteAllLines(rutaTxt, pedidos);
+
+                Console.WriteLine("Pedido cobrado y eliminado");
+            }
+            
         }
 
     }
