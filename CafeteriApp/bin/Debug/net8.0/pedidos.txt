@@ -1,3 +1,2 @@
 11;1,8;Bebida;Café con leche;10
 13;5;Salado;Té con tostada de jamón y tomate;3
-14;4,5;Dulce;Tarta de zanahoria;4

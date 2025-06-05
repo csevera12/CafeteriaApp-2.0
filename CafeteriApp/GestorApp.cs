@@ -308,19 +308,26 @@ namespace CaferiApp
                 Console.WriteLine($"{i + 1}- {pedidos[i]}.");
             }
 
+            Console.WriteLine();
             Console.WriteLine("Introduce el número de pedido a cobrar: ");
             int opcion = int.Parse(Console.ReadLine());
 
             if (opcion > 0 && opcion <= pedidos.Count)
             {
+                string pedido = pedidos[opcion - 1];
                 pedidos.RemoveAt(opcion - 1);
 
                 File.WriteAllLines(rutaTxt, pedidos);
 
-                Console.WriteLine("Pedido cobrado y eliminado");
-            }
-            
-        }
+                string[] datosFactura = pedido.Split(';');
 
+                Console.WriteLine($"\nPedido entregado al cliente, el recibo es:\n" +
+                          $"ID del pedido: {datosFactura[0]}\n" +
+                          //$"Tipo: {datosFactura[2]}\n" +
+                          $"Descripción: {datosFactura[3]}\n" +
+                          $"Precio total: {datosFactura[1]}€\n" +
+                          $"Estado: PAGADO");
+            }
+        }
     }
 }
