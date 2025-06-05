@@ -15,6 +15,7 @@ namespace CaferiApp
         Cliente cliente;
         Administrador admin;
 
+        static List<Reserva> reservas = new List<Reserva>();
         static List<Producto> productos;
         int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
 
@@ -81,7 +82,7 @@ namespace CaferiApp
                         HacerPedido(usuario);
                         break;
                     case "2":
-                        //GestorApp.VerPedidos();
+                        ReservarMesa(usuario);
                         break;
                     case "S":
                         Console.WriteLine(CentrarTexto("Saliendo de la aplicación...", anchoPantalla));
@@ -161,7 +162,7 @@ namespace CaferiApp
 
             return opcion;
         }
-        
+
         public static void CrearProducto()
         {
             int anchoPantalla = Console.WindowWidth - 2;
@@ -269,7 +270,7 @@ namespace CaferiApp
 
             for (int i = 0; i < pedidos.Count; i++)
             {
-                Console.WriteLine(CentrarTexto($"{i + 1}- {pedidos[i]}.",anchoPantalla));
+                Console.WriteLine(CentrarTexto($"{i + 1}- {pedidos[i]}.", anchoPantalla));
             }
 
             Console.WriteLine();
@@ -290,7 +291,7 @@ namespace CaferiApp
                           //$"Tipo: {datosFactura[2]}\n" +
                           $"Descripción: {datosFactura[3]}\n" +
                           $"Precio total: {datosFactura[1]}€\n" +
-                          $"Estado: PAGADO",anchoPantalla));
+                          $"Estado: PAGADO", anchoPantalla));
             }
         }
         public static void AnyadirStock()
@@ -302,7 +303,7 @@ namespace CaferiApp
             Console.WriteLine();
             foreach (Producto producto in productos)
             {
-                Console.WriteLine(CentrarTexto(producto.ToString(),anchoPantalla));
+                Console.WriteLine(CentrarTexto(producto.ToString(), anchoPantalla));
             }
             Console.WriteLine();
 
@@ -349,7 +350,7 @@ namespace CaferiApp
             }
             else
             {
-                Console.WriteLine(CentrarTexto("Producto no encontrado.",anchoPantalla));
+                Console.WriteLine(CentrarTexto("Producto no encontrado.", anchoPantalla));
             }
             Producto.GuardarProductos("productos.txt", productos);
         }
@@ -378,7 +379,7 @@ namespace CaferiApp
             int mesa = 0;
 
             int codigo = Comanda.VerCodigo("pedidos.txt");
-            
+
 
             Console.WriteLine(CentrarTexto("Productos disponibles:", anchoPantalla));
             Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio", anchoPantalla));
@@ -388,7 +389,7 @@ namespace CaferiApp
             }
             Console.WriteLine();
 
-            while(seguirPidiendo)
+            while (seguirPidiendo)
             {
                 Console.Write(CentrarTexto("Introduce el código del producto que quieres pedir: ", anchoPantalla));
                 codigo = int.Parse(Console.ReadLine());
@@ -420,13 +421,102 @@ namespace CaferiApp
 
                 Console.Write(CentrarTexto("¿Quieres añadir otro producto? (S/N): ", anchoPantalla));
 
-                if(Console.ReadLine().ToUpper() != "S")
+                if (Console.ReadLine().ToUpper() != "S")
                 {
                     seguirPidiendo = false;
                 }
             }
-            
+
             //pedidos.Add(productosPedidos,mesa,codigo,usuario.Telefono);
+        }
+        public static void ReservarMesa(Usuario usuario)
+        {
+            int anchoPantalla = Console.WindowWidth - 2;
+
+            Console.WriteLine(CentrarTexto("RESERVA DE MESA", anchoPantalla));
+
+            string fechaTexto = "";
+            DateTime fechaReserva = DateTime.MinValue;
+            bool fechaValida = false;
+            while (!fechaValida)
+            {
+                Console.Write(CentrarTexto("Introduce la fecha de la reserva (ejemplo: 05/06/2025): ", anchoPantalla));
+                fechaTexto = Console.ReadLine();
+                fechaValida = DateTime.TryParseExact(
+                    fechaTexto,
+                    "dd/MM/yyyy",
+                    null,
+                    System.Globalization.DateTimeStyles.None,
+                    out fechaReserva
+                );
+                if (!fechaValida)
+                {
+                    Console.WriteLine(CentrarTexto("Formato de fecha incorrecto. Usa dd/MM/aaaa", anchoPantalla));
+                }
+            }
+
+            string horaTexto = "";
+            TimeOnly horaReserva = TimeOnly.MinValue;
+            bool horaValida = false;
+            while (!horaValida)
+            {
+                Console.Write(CentrarTexto("Introduce la hora de la reserva (ejemplo: 19:00): ", anchoPantalla));
+                horaTexto = Console.ReadLine();
+                horaValida = TimeOnly.TryParse(horaTexto, out horaReserva);
+                if (!horaValida)
+                {
+                    Console.WriteLine(CentrarTexto("Formato de hora incorrecto. Usa HH:mm", anchoPantalla));
+                }
+            }
+
+            string nombre = "";
+            do
+            {
+                Console.Write(CentrarTexto("Introduce tu nombre: ", anchoPantalla));
+                nombre = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nombre))
+                {
+                    Console.WriteLine(CentrarTexto("El nombre no puede estar vacío.", anchoPantalla));
+                }
+            } while (string.IsNullOrWhiteSpace(nombre));
+
+            string tlfTexto = "";
+            int tlf = 0;
+            bool tlfValido = false;
+            do
+            {
+                Console.Write(CentrarTexto("Introduce tu teléfono: ", anchoPantalla));
+                tlfTexto = Console.ReadLine();
+                tlfValido = tlfTexto.Length == 9 &&
+                            (tlfTexto.StartsWith("6") || tlfTexto.StartsWith("7") || tlfTexto.StartsWith("8")) &&
+                            int.TryParse(tlfTexto, out tlf);
+                if (!tlfValido)
+                {
+                    Console.WriteLine(CentrarTexto("El teléfono debe tener 9 dígitos, empezar por 6, 7 u 8 y ser numérico.", anchoPantalla));
+                }
+            } while (!tlfValido);
+
+            string comensalesTexto = "";
+            int numComensales = 0;
+            bool comensalesValidos = false;
+            do
+            {
+                Console.Write(CentrarTexto("¿Cuántos comensales? ", anchoPantalla));
+                comensalesTexto = Console.ReadLine();
+                comensalesValidos = int.TryParse(comensalesTexto, out numComensales) && numComensales > 0;
+                if (!comensalesValidos)
+                {
+                    Console.WriteLine(CentrarTexto("Introduce un número válido de comensales (mayor que 0).", anchoPantalla));
+                }
+            } while (!comensalesValidos);
+
+            Reserva nuevaReserva = new Reserva(nombre, tlf, numComensales, fechaReserva, horaReserva);
+            reservas.Add(nuevaReserva);
+
+            string reservaTxt = $"{nombre};{tlf};{numComensales};{fechaReserva:dd/MM/yyyy};{horaReserva:HH\\:mm}";
+            File.AppendAllText("reservas.txt", reservaTxt + Environment.NewLine);
+
+            Console.WriteLine(CentrarTexto("¡Reserva realizada con éxito!", anchoPantalla));
         }
     }
 }
