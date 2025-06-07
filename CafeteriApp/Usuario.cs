@@ -19,7 +19,8 @@ namespace CaferiApp
         public string Contrasena { get => contrasena; set => contrasena = value; }
         public long Telefono { get => telefono; set => telefono = value; }
 
-        public Usuario(string permisos,string username, string contrasena,long telefono)
+        public Usuario(string permisos,string username,
+        string contrasena,long telefono)
         {
             Permisos = permisos;
             Nombre = username;

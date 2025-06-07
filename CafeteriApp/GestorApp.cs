@@ -9,15 +9,14 @@ namespace CaferiApp
 {
     public class GestorApp
     {
-        List<Usuario> usuarios;
-        InicioSesion inicioSesion;
+        private List<Usuario> usuarios;
+        private InicioSesion inicioSesion;
+        private Cliente cliente;
+        private Administrador admin;
 
-        Cliente cliente;
-        Administrador admin;
-
-        static List<Reserva> reservas = new List<Reserva>();
-        static List<Producto> productos;
-        int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
+        private static List<Reserva> reservas = new List<Reserva>();
+        private static List<Producto> productos;
+        private int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
 
 
         public GestorApp(List<Usuario> usuarios, int opcionSeleccionada)
