@@ -110,7 +110,7 @@ namespace CaferiApp
                 Console.WriteLine(CentrarTexto("", anchoPantalla));
             }
 
-            Console.WriteLine(CentrarTexto("VERIFICANDO DE NUEVO LAS CREDENCIALES", anchoPantalla));
+            Console.WriteLine(CentrarTexto("REGISTRO USUARIO", anchoPantalla));
             Console.WriteLine();
 
         }
