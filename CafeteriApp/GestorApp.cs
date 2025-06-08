@@ -307,7 +307,7 @@ namespace CaferiApp
                           $"ID del pedido: {datosFactura[0]}\n" +
                           //$"Tipo: {datosFactura[2]}\n" +
                           $"Descripción: {datosFactura[3]}\n" +
-                          $"Precio total: {datosFactura[1]}€\n" +
+                          $"Precio total: {datosFactura[1]}euro(s)\n" +
                           $"Estado: PAGADO", anchoPantalla));
             }
         }
