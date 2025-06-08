@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO; // Añade esto para File
 
 namespace CaferiApp
 {
@@ -34,11 +35,12 @@ namespace CaferiApp
             return $"{Permisos}:{Nombre}:{Contrasena}:{Telefono}";
         }
 
-        public static List<Usuario> CargarUsuarios(string rutaFichero)
+        public static List<Usuario> CargarUsuarios(string nombreFichero)
         {
             List<Usuario> usuarios = new List<Usuario>();
             try
             {
+                string rutaFichero = GestorApp.DataPath(nombreFichero);
                 foreach (string linea in File.ReadAllLines(rutaFichero))
                 {
                     string[] datos = linea.Trim().Split(':');
@@ -48,13 +50,13 @@ namespace CaferiApp
                         string username = datos[1];
                         string contrasena = datos[2];
                         long telefono = Convert.ToInt64(datos[3]);
-                        usuarios.Add(new Usuario(permisos, username, contrasena,telefono));
+                        usuarios.Add(new Usuario(permisos, username, contrasena, telefono));
                     }
                 }
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine($"El fichero {rutaFichero} no existe.");
+                Console.WriteLine($"El fichero {nombreFichero} no existe.");
             }
             catch (Exception e)
             {
@@ -63,12 +65,13 @@ namespace CaferiApp
             return usuarios;
         }
 
-        public static List<Usuario> CargarClientes(string rutaFichero)
+        public static List<Usuario> CargarClientes(string nombreFichero)
         {
             List<Usuario> clientes = new List<Usuario>();
 
             try
             {
+                string rutaFichero = GestorApp.DataPath(nombreFichero);
                 foreach (string linea in File.ReadAllLines(rutaFichero))
                 {
                     string[] datos = linea.Trim().Split(':');
@@ -79,13 +82,13 @@ namespace CaferiApp
                         string username = datos[1];
                         string contrasena = datos[2];
                         long telefono = Convert.ToInt64(datos[3]);
-                        clientes.Add(new Cliente(permisos, username, contrasena,telefono));
+                        clientes.Add(new Cliente(permisos, username, contrasena, telefono));
                     }
                 }
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine($"El fichero {rutaFichero} no existe.");
+                Console.WriteLine($"El fichero {nombreFichero} no existe.");
             }
             catch (Exception e)
             {
@@ -94,12 +97,11 @@ namespace CaferiApp
             return clientes;
         }
 
-        public static void GuardarUsuarios(string rutaFichero)
+        public static void GuardarUsuarios(string nombreFichero, List<Usuario> usuarios)
         {
-           List<Usuario> usuarios = new List<Usuario>();
-
-           try
-           {
+            try
+            {
+                string rutaFichero = GestorApp.DataPath(nombreFichero);
                 List<string> lineas = new List<String>();
 
                 foreach (Usuario usuario in usuarios)
@@ -110,8 +112,7 @@ namespace CaferiApp
 
                 File.WriteAllLines(rutaFichero, lineas);
             }
-
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
             }

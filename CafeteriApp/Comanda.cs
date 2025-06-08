@@ -29,7 +29,7 @@ namespace CaferiApp
         public static List<Comanda> CargarComandas()
         {
             List<Comanda> comandas = new List<Comanda>();
-            string ruta = "pedidos.txt";
+            string ruta = GestorApp.DataPath("pedidos.txt");
             if (File.Exists(ruta))
             {
                 string[] lineas = File.ReadAllLines(ruta);
@@ -44,7 +44,7 @@ namespace CaferiApp
                         List<Producto> productos = new List<Producto>();
 
                         // Cargar todos los productos disponibles (ajusta la ruta según tu proyecto)
-                        List<Producto> productosDisponibles = Producto.CargarProductos("productos.txt");
+                        List<Producto> productosDisponibles = Producto.CargarProductos(GestorApp.DataPath("productos.txt"));
 
                         for (int i = 3; i < datos.Length; i++)
                         {

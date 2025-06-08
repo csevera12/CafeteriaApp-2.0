@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO; // Añade esto para Path
 
 namespace CaferiApp
 {
@@ -167,11 +168,30 @@ namespace CaferiApp
             return opcion;
         }
 
+        // Método auxiliar para obtener la ruta absoluta a la carpeta data usando DirectoryInfo
+        public static string DataDirectory()
+        {
+            // Obtiene el directorio actual de ejecución
+            DirectoryInfo dir = new DirectoryInfo(Environment.CurrentDirectory);
+            // Sube tres niveles (bin/Debug/net8.0 -> CafeteriApp -> ProyectoProgramacion)
+            DirectoryInfo? projectRoot = dir.Parent?.Parent?.Parent;
+            if (projectRoot == null)
+                throw new DirectoryNotFoundException("No se pudo encontrar el directorio raíz del proyecto.");
+            // Devuelve la ruta completa a la carpeta data
+            return Path.Combine(projectRoot.FullName, "data");
+        }
+
+        // Método auxiliar para obtener la ruta absoluta al archivo en la carpeta data usando DirectoryInfo
+        public static string DataPath(string filename)
+        {
+            return Path.Combine(DataDirectory(), filename);
+        }
+
         public static void CrearProducto()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
             Console.Write(CentrarTexto("Código: ", anchoPantalla));
             int codigo = int.Parse(Console.ReadLine());
             bool valido = false;
@@ -221,7 +241,7 @@ namespace CaferiApp
             {
                 productos.Add(nuevo);
                 Console.WriteLine(CentrarTexto("Producto creado correctamente.", anchoPantalla));
-                Producto.GuardarProductos("productos.txt", productos);
+                Producto.GuardarProductos(DataPath("productos.txt"), productos);
             }
             else
             {
@@ -232,7 +252,7 @@ namespace CaferiApp
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
 
             Console.WriteLine();
             foreach (Producto producto in productos)
@@ -255,13 +275,13 @@ namespace CaferiApp
             {
                 Console.WriteLine(CentrarTexto("Producto no encontrado.", anchoPantalla));
             }
-            Producto.GuardarProductos("productos.txt", productos);
+            Producto.GuardarProductos(DataPath("productos.txt"), productos);
         }
         public static void VerPedidosYCobrar()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            string rutaTxt = "pedidos.txt";
+            string rutaTxt = DataPath("pedidos.txt");
 
             List<string> pedidos = File.ReadAllLines(rutaTxt).ToList();
 
@@ -299,7 +319,7 @@ namespace CaferiApp
                 string pedido = pedidos[opcion - 1];
                 pedidos.RemoveAt(opcion - 1);
 
-                File.WriteAllLines("pedidos.txt", pedidos);
+                File.WriteAllLines(DataPath("pedidos.txt"), pedidos);
 
                 string[] datosFactura = pedido.Split(';');
 
@@ -315,7 +335,7 @@ namespace CaferiApp
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
 
             Console.WriteLine();
             foreach (Producto producto in productos)
@@ -339,13 +359,13 @@ namespace CaferiApp
                 Console.WriteLine(CentrarTexto("Producto no encontrado.", anchoPantalla));
             }
 
-            Producto.GuardarProductos("productos.txt", productos);
+            Producto.GuardarProductos(DataPath("productos.txt"), productos);
         }
         public static void ModificarProducto()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
             Console.WriteLine();
             foreach (Producto producto in productos)
             {
@@ -369,13 +389,13 @@ namespace CaferiApp
             {
                 Console.WriteLine(CentrarTexto("Producto no encontrado.", anchoPantalla));
             }
-            Producto.GuardarProductos("productos.txt", productos);
+            Producto.GuardarProductos(DataPath("productos.txt"), productos);
         }
         public static void VerProductos()
         {
             int anchoPantalla = Console.WindowWidth - 2;
 
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
             Console.WriteLine();
             Console.WriteLine(CentrarTexto("Productos disponibles:", anchoPantalla));
             Console.WriteLine(CentrarTexto("Código\tNombre\tTipo\tPrecio\tStock", anchoPantalla));
@@ -387,7 +407,7 @@ namespace CaferiApp
         }
         public static void HacerPedido(Usuario usuario)
         {
-            productos = Producto.CargarProductos("productos.txt");
+            productos = Producto.CargarProductos(DataPath("productos.txt"));
             
             List<Producto> productosPedidos = new List<Producto>();
             double precioTotal = 0;
@@ -395,7 +415,7 @@ namespace CaferiApp
             bool seguirPidiendo = true;
             int mesa = 0;
 
-            int codigo = Comanda.VerCodigo("pedidos.txt");
+            int codigo = Comanda.VerCodigo(DataPath("pedidos.txt"));
 
 
             Console.WriteLine(CentrarTexto("Productos disponibles:", anchoPantalla));
@@ -423,7 +443,7 @@ namespace CaferiApp
                         precioTotal += productoSeleccionado.Precio * cantidad;
                         productoSeleccionado.Stock -= cantidad;
                         Console.WriteLine(CentrarTexto($"Pedido realizado: {cantidad} {productoSeleccionado.Nombre}(s).", anchoPantalla));
-                        Producto.GuardarProductos("productos.txt", productos);
+                        Producto.GuardarProductos(DataPath("productos.txt"), productos);
                         productosPedidos.Add(productoSeleccionado);
                     }
                     else
@@ -445,7 +465,7 @@ namespace CaferiApp
             }
             pedidos.Add(new Comanda(productosPedidos,mesa,codigo,usuario.Telefono));
 
-            using (StreamWriter sw = new StreamWriter("pedidos.txt", true))
+            using (StreamWriter sw = new StreamWriter(DataPath("pedidos.txt"), true))
             {
                 sw.WriteLine($"{codigo};{mesa};{usuario.Telefono};{string.Join(",", productosPedidos.Select(p => p.Nombre))}");
             }
@@ -536,7 +556,7 @@ namespace CaferiApp
             reservas.Add(nuevaReserva);
 
             string reservaTxt = $"{nombre};{tlf};{numComensales};{fechaReserva:dd/MM/yyyy};{horaReserva:HH\\:mm}";
-            File.AppendAllText("reservas.txt", reservaTxt + Environment.NewLine);
+            File.AppendAllText(DataPath("reservas.txt"), reservaTxt + Environment.NewLine);
 
             Console.WriteLine(CentrarTexto("¡Reserva realizada con éxito!", anchoPantalla));
         }
