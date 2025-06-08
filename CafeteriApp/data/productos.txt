@@ -1,0 +1,49 @@
+1;Café solo;bebida;1.20;50
+2;Café con leche;bebida;1.40;50
+3;Café descafeinado;bebida;1.30;40
+4;Té negro;bebida;1.10;30
+5;Té verde;bebida;1.10;30
+6;Infusión manzanilla;bebida;1.10;25
+7;Cola Cao;bebida;1.50;20
+8;Chocolate caliente;bebida;1.60;20
+9;Zumo de naranja;bebida;1.80;25
+10;Zumo de piña;bebida;1.80;20
+11;Agua mineral;bebida;1.00;60
+12;Refresco cola;bebida;1.50;40
+13;Refresco limón;bebida;1.50;35
+14;Refresco naranja;bebida;1.50;35
+15;Croissant;dulce;1.20;30
+16;Napolitana chocolate;dulce;1.50;25
+17;Napolitana crema;dulce;1.50;20
+18;Donut glaseado;dulce;1.30;20
+19;Donut chocolate;dulce;1.40;20
+20;Muffin arándanos;dulce;1.60;15
+21;Muffin chocolate;dulce;1.60;15
+22;Tarta de queso;dulce;2.50;10
+23;Tarta de zanahoria;dulce;2.50;10
+24;Bizcocho casero;dulce;1.80;12
+25;Galletas artesanas;dulce;1.00;30
+26;Tostada tomate;salado;1.50;25
+27;Tostada jamón;salado;2.00;20
+28;Tostada aguacate;salado;2.20;15
+29;Bocadillo jamón;salado;2.50;15
+30;Bocadillo queso;salado;2.30;15
+31;Bocadillo vegetal;salado;2.80;12
+32;Sandwich mixto;salado;2.20;18
+33;Sandwich vegetal;salado;2.50;15
+34;Empanada atún;salado;2.00;10
+35;Empanada carne;salado;2.00;10
+36;Pizza individual;salado;3.00;8
+37;Ensalada mixta;salado;2.80;10
+38;Ensalada César;salado;3.20;8
+39;Tortilla patata;salado;2.50;12
+40;Pincho tortilla;salado;1.80;20
+41;Huevos revueltos;salado;2.80;10
+42;Quiche lorraine;salado;3.00;8
+43;Pan tumaca;salado;1.60;18
+44;Bagel salmón;salado;3.50;6
+45;Bagel pollo;salado;3.20;6
+46;Wrap pollo;salado;3.00;8
+47;Wrap vegetal;salado;2.80;8
+48;Patatas fritas;salado;1.50;20
+49;Nachos con queso;salado;2.50;10
