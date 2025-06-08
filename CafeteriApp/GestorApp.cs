@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO; // Añade esto para Path
+using System.IO;
 
 namespace CaferiApp
 {
@@ -18,7 +18,7 @@ namespace CaferiApp
         private static List<Comanda> pedidos = new List<Comanda>();
         private static List<Reserva> reservas = new List<Reserva>();
         private static List<Producto> productos;
-        private int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
+        private int opcionSeleccionada = 0;
 
 
         public GestorApp(List<Usuario> usuarios, int opcionSeleccionada)
@@ -47,11 +47,11 @@ namespace CaferiApp
         {
             Usuario usuario = null;
 
-            if (opcionSeleccionada == 0) // Iniciar sesión
+            if (opcionSeleccionada == 0)
             {
                 usuario = inicioSesion.ValidarCredenciales();
             }
-            else if (opcionSeleccionada == 1) // Registro
+            else if (opcionSeleccionada == 1)
             {
                 if (inicioSesion.RegistrarUsuario())
                 {
@@ -168,20 +168,15 @@ namespace CaferiApp
             return opcion;
         }
 
-        // Método auxiliar para obtener la ruta absoluta a la carpeta data usando DirectoryInfo
         public static string DataDirectory()
         {
-            // Obtiene el directorio actual de ejecución
             DirectoryInfo dir = new DirectoryInfo(Environment.CurrentDirectory);
-            // Sube tres niveles (bin/Debug/net8.0 -> CafeteriApp -> ProyectoProgramacion)
             DirectoryInfo? projectRoot = dir.Parent?.Parent?.Parent;
             if (projectRoot == null)
                 throw new DirectoryNotFoundException("No se pudo encontrar el directorio raíz del proyecto.");
-            // Devuelve la ruta completa a la carpeta data
             return Path.Combine(projectRoot.FullName, "data");
         }
 
-        // Método auxiliar para obtener la ruta absoluta al archivo en la carpeta data usando DirectoryInfo
         public static string DataPath(string filename)
         {
             return Path.Combine(DataDirectory(), filename);
@@ -195,7 +190,6 @@ namespace CaferiApp
             Console.Write(CentrarTexto("Código: ", anchoPantalla));
             int codigo = int.Parse(Console.ReadLine());
             bool valido = false;
-            // Verificar si el código ya existe
             while (!valido)
             {
                 if (!productos.Any(p => p.Codigo == codigo))
