@@ -258,27 +258,41 @@ namespace CaferiApp
         }
         public static void VerPedidosYCobrar()
         {
+            Comanda c = new Comanda(" ");
             int anchoPantalla = Console.WindowWidth - 2;
 
             string rutaTxt = "pedidos.txt";
 
             List<string> pedidos = File.ReadAllLines(rutaTxt).ToList();
 
+            int opcion = 0;
+
             if (pedidos.Count == 0)
             {
                 Console.WriteLine(CentrarTexto("En estos momentos no hay pedidos", anchoPantalla));
             }
-
-            Console.WriteLine(CentrarTexto("PEDIDOS: ", anchoPantalla));
-
-            for (int i = 0; i < pedidos.Count; i++)
+            else
             {
-                Console.WriteLine(CentrarTexto($"{i + 1}- {pedidos[i]}.", anchoPantalla));
-            }
+                for (int i = 0; i < pedidos.Count && pedidos.Count != 0; i++)
+                {
+                    Console.WriteLine(CentrarTexto("PEDIDOS: ", anchoPantalla));
+                    Console.WriteLine(CentrarTexto($"{i + 1}- {pedidos[i]}.", anchoPantalla));
+                }
 
-            Console.WriteLine();
-            Console.Write(CentrarTexto("Introduce el número de pedido a cobrar: ", anchoPantalla));
-            int opcion = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+                Console.Write(CentrarTexto("Introduce el número de pedido a cobrar: ", anchoPantalla));
+                bool saltaExcepcion = Int32.TryParse(Console.ReadLine(), out opcion);
+
+                while (!saltaExcepcion)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(CentrarTexto("----El número es obligatorio---", anchoPantalla));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(CentrarTexto("Introduce el número de pedido a cobrar: ", anchoPantalla));
+                    saltaExcepcion = Int32.TryParse(Console.ReadLine(), out opcion);
+                }
+
+            }                         
 
             if (opcion > 0 && opcion <= pedidos.Count)
             {
