@@ -241,7 +241,7 @@ namespace CaferiApp
             Console.WriteLine();
 
             Console.Write(CentrarTexto("Introduce el código del producto a eliminar: ", anchoPantalla));
-            int codigo = int.Parse(Console.ReadLine());
+            int codigo = Convert.ToInt32(Console.ReadLine());
 
             Producto productoAEliminar = productos.Find(p => p.Codigo == codigo);
 

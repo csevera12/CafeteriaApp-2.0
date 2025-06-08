@@ -116,28 +116,5 @@ namespace CaferiApp
                 Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
             }
         }
-
-        public static void GuardarClientes(string rutaFichero)
-        {
-            List<Usuario> clientes = new List<Usuario>();
-
-            try 
-            {
-                List<string> lineas = new List<String>();
-
-                foreach(Usuario cliente in clientes)
-                {
-                    string linea = $"{cliente.Permisos}:{cliente.Nombre}:{cliente.Contrasena}:{cliente.Telefono}";
-                    lineas.Add(linea);
-                }
-
-                File.WriteAllLines(rutaFichero, lineas);
-            }
-
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error al escribir en el fichero: {e.Message}");
-            }
-        }        
     }
 }
