@@ -258,7 +258,6 @@ namespace CaferiApp
         }
         public static void VerPedidosYCobrar()
         {
-            Comanda c = new Comanda(" ");
             int anchoPantalla = Console.WindowWidth - 2;
 
             string rutaTxt = "pedidos.txt";
