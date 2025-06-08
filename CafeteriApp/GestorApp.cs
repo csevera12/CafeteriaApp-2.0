@@ -14,6 +14,7 @@ namespace CaferiApp
         private Cliente cliente;
         private Administrador admin;
 
+        private static List<Comanda> pedidos = new List<Comanda>();
         private static List<Reserva> reservas = new List<Reserva>();
         private static List<Producto> productos;
         private int opcionSeleccionada = 0; // 0 para iniciar sesión, 1 para registro
@@ -241,7 +242,7 @@ namespace CaferiApp
             Console.WriteLine();
 
             Console.Write(CentrarTexto("Introduce el código del producto a eliminar: ", anchoPantalla));
-            int codigo = Convert.ToInt32(Console.ReadLine());
+            int codigo = int.Parse(Console.ReadLine());
 
             Producto productoAEliminar = productos.Find(p => p.Codigo == codigo);
 
@@ -298,7 +299,7 @@ namespace CaferiApp
                 string pedido = pedidos[opcion - 1];
                 pedidos.RemoveAt(opcion - 1);
 
-                File.WriteAllLines(rutaTxt, pedidos);
+                File.WriteAllLines("pedidos.txt", pedidos);
 
                 string[] datosFactura = pedido.Split(';');
 
@@ -387,7 +388,7 @@ namespace CaferiApp
         public static void HacerPedido(Usuario usuario)
         {
             productos = Producto.CargarProductos("productos.txt");
-            List<Comanda> pedidos = new List<Comanda>();
+            
             List<Producto> productosPedidos = new List<Producto>();
             double precioTotal = 0;
             int anchoPantalla = Console.WindowWidth - 2;
@@ -442,8 +443,13 @@ namespace CaferiApp
                     seguirPidiendo = false;
                 }
             }
+            pedidos.Add(new Comanda(productosPedidos,mesa,codigo,usuario.Telefono));
 
-            //pedidos.Add(productosPedidos,mesa,codigo,usuario.Telefono);
+            using (StreamWriter sw = new StreamWriter("pedidos.txt", true))
+            {
+                sw.WriteLine($"{codigo};{mesa};{usuario.Telefono};{string.Join(",", productosPedidos.Select(p => p.Nombre))}");
+            }
+
         }
         public static void ReservarMesa(Usuario usuario)
         {

@@ -11,9 +11,9 @@ namespace CaferiApp
         private List<Producto> productos;
         private int mesa;
         private int codigo;
-        private int tlf;
+        private long tlf;
 
-        public Comanda(List<Producto> productos, int mesa, int codigo, int tlf)
+        public Comanda(List<Producto> productos, int mesa, int codigo, long tlf)
         {
             this.productos = productos;
             this.mesa = mesa;
@@ -23,7 +23,7 @@ namespace CaferiApp
 
         public int Mesa { get => mesa; set => mesa = value; }
         public int Codigo { get => codigo; set => codigo = value; }
-        public int Tlf { get => tlf; set => tlf = value; }
+        public long Tlf { get => tlf; set => tlf = value; }
         public List<Producto> Productos { get => productos; set => productos = value; }
 
         public static List<Comanda> CargarComandas()
@@ -40,7 +40,7 @@ namespace CaferiApp
                     {
                         int codigo = int.Parse(datos[0]);
                         int mesa = int.Parse(datos[1]);
-                        int tlf = int.Parse(datos[2]);
+                        long tlf = long.Parse(datos[2]);
                         List<Producto> productos = new List<Producto>();
 
                         // Cargar todos los productos disponibles (ajusta la ruta según tu proyecto)
@@ -89,6 +89,13 @@ namespace CaferiApp
                 }
             }
             return codigo + 1;
+        }
+
+        public override string ToString()
+        {
+            Usuario u = new Usuario();
+
+            return $"{codigo};{mesa};{u.Telefono};{string.Join(",", productos.Select(p => p.Nombre))}";
         }
     }
 }
