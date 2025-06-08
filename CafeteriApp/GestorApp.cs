@@ -317,12 +317,12 @@ namespace CaferiApp
 
                 string[] datosFactura = pedido.Split(';');
 
-                Console.WriteLine(CentrarTexto($"\nPedido entregado al cliente, el recibo es:\n" +
-                          $"ID del pedido: {datosFactura[0]}\n" +
+                Console.WriteLine((CentrarTexto($"Pedido entregado al cliente, el recibo es:\n", anchoPantalla) +
+                          CentrarTexto($"ID del pedido: {datosFactura[0]}\n", anchoPantalla) +
                           //$"Tipo: {datosFactura[2]}\n" +
-                          $"Descripción: {datosFactura[3]}\n" +
-                          $"Precio total: {datosFactura[1]}euro(s)\n" +
-                          $"Estado: PAGADO", anchoPantalla));
+                          CentrarTexto($"Descripción: {datosFactura[3]}\n", anchoPantalla) +
+                          CentrarTexto($"Precio total: {datosFactura[1]}euro(s)\n", anchoPantalla) +
+                          CentrarTexto($"Estado: PAGADO", anchoPantalla), anchoPantalla));
             }
         }
         public static void AnyadirStock()

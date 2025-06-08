@@ -45,51 +45,11 @@ namespace CaferiApp
                 if (!encontrado)
                 {
                     intentos--;
-                    Console.WriteLine($"Usuario o contraseña incorrectos. Quedan {intentos} intentos");
+                    Console.WriteLine(CentrarTexto($"Usuario o contraseña incorrectos. Quedan {intentos} intentos",anchoPantalla));
                 }
             }
 
             return usuarioGA;
-            /*if (modoRegistro) 
-            {
-                bool registrado = RegistrarUsuario(nombre, contrasena);
-                if (registrado)
-                {
-                    Usuario nuevo = usuarios.Find(u => u.Nombre == nombre && u.Contrasena == contrasena);
-                    return nuevo;
-                }
-                else
-                {
-                    return null;
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("No estás registrado! - ¿Deseas registrarte (S/N)? ");
-                string opcion = Console.ReadLine();
-
-                if (opcion?.ToUpper() == "S")
-                {
-                    bool registrado = RegistrarUsuario(nombre, contrasena);
-
-                    if (registrado)
-                    {
-                        Usuario nuevo = usuarios.Find(u => u.Nombre == nombre && u.Contrasena == contrasena);
-                        return nuevo;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Saliendo de la aplicación...");
-                    return null;
-                }
-            }
-            */
         }
 
         public bool RegistrarUsuario()
